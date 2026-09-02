@@ -5,170 +5,338 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>TaskMaster Pro</title>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
 :root {
-  --bg: #0f0c29; --bg2: #302b63; --bg3: #24243e;
-  --card: rgba(255,255,255,0.06); --card-border: rgba(255,255,255,0.1);
-  --text: #ffffff; --muted: #a0a0c0; --primary: #7c5cff; --primary2: #5ee7df;
-  --danger: #ff4b6e; --success: #00d395; --warning: #ffb547;
-  --gradient: linear-gradient(135deg, #7c5cff 0%, #5ee7df 100%);
-  --shadow: 0 8px 32px rgba(0,0,0,0.4);
+  --bg: #08080c;
+  --bg-elev: #0f0f14;
+  --bg-card: #14141b;
+  --bg-card-hover: #1a1a24;
+  --border: rgba(255,255,255,0.06);
+  --border-active: rgba(255,255,255,0.12);
+  --text: #f4f4f6;
+  --text-secondary: #8b8b9e;
+  --text-tertiary: #5a5a6e;
+  --accent: #f59e0b;
+  --accent-dim: rgba(245,158,11,0.12);
+  --accent-glow: rgba(245,158,11,0.25);
+  --success: #22c55e;
+  --success-dim: rgba(34,197,94,0.12);
+  --danger: #ef4444;
+  --danger-dim: rgba(239,68,68,0.12);
+  --info: #3b82f6;
+  --info-dim: rgba(59,130,246,0.12);
+  --radius: 16px;
+  --radius-sm: 12px;
 }
-* { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', -apple-system, sans-serif; -webkit-tap-highlight-color: transparent; }
+
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
 html, body { height: 100%; overflow: hidden; }
 body {
-  background: linear-gradient(-45deg, #0f0c29, #302b63, #24243e, #0f0c29);
-  background-size: 400% 400%; animation: bgShift 15s ease infinite;
-  color: var(--text); display: flex; flex-direction: column;
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  display: flex;
+  flex-direction: column;
+  -webkit-font-smoothing: antialiased;
 }
-@keyframes bgShift { 0%{background-position:0% 50%} 50%{background-position:100% 50%} 100%{background-position:0% 50%} }
 
 /* Header */
 .header {
-  padding: 20px 24px 10px; display: flex; justify-content: space-between; align-items: center;
-  background: linear-gradient(180deg, rgba(15,12,41,0.9) 0%, rgba(15,12,41,0) 100%);
-  backdrop-filter: blur(10px); z-index: 10;
+  padding: 16px 20px 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+  z-index: 10;
+  flex-shrink: 0;
 }
-.header h1 { font-size: 24px; font-weight: 800; letter-spacing: -0.5px; }
-.header h1 span { background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-.header-actions { display: flex; gap: 10px; }
+.header-left h1 {
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: -0.3px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.logo-mark {
+  width: 28px; height: 28px; border-radius: 8px;
+  background: var(--accent);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px; font-weight: 800; color: #000;
+  box-shadow: 0 0 20px var(--accent-glow);
+}
+.header-right { display: flex; gap: 8px; }
 .icon-btn {
-  width: 40px; height: 40px; border-radius: 14px; border: 1px solid var(--card-border);
-  background: var(--card); backdrop-filter: blur(10px); color: white; display: flex;
-  align-items: center; justify-content: center; font-size: 18px; cursor: pointer; transition: 0.2s;
+  width: 36px; height: 36px; border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  background: var(--bg-card);
+  color: var(--text-secondary);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 16px; cursor: pointer;
+  transition: background 0.15s, color 0.15s;
 }
-.icon-btn:active { transform: scale(0.92); background: rgba(255,255,255,0.12); }
+.icon-btn:hover, .icon-btn:active { background: var(--bg-card-hover); color: var(--text); }
 
 /* Tabs */
-.tabs { display: flex; gap: 8px; padding: 10px 24px; overflow-x: auto; }
+.tabs {
+  display: flex;
+  gap: 6px;
+  padding: 12px 20px;
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
 .tab {
-  padding: 8px 18px; border-radius: 999px; font-size: 13px; font-weight: 600;
-  border: 1px solid var(--card-border); background: var(--card); color: var(--muted);
-  white-space: nowrap; cursor: pointer; transition: 0.3s; backdrop-filter: blur(10px);
+  flex: 1;
+  padding: 10px;
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  font-weight: 600;
+  text-align: center;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.2s;
 }
-.tab.active { background: var(--gradient); color: white; border-color: transparent; box-shadow: 0 4px 15px rgba(124,92,255,0.4); }
+.tab.active {
+  background: var(--accent);
+  color: #000;
+  border-color: var(--accent);
+  font-weight: 700;
+  box-shadow: 0 4px 16px var(--accent-glow);
+}
 
-/* Content area */
-.content { flex: 1; overflow-y: auto; padding: 0 24px 100px; display: none; }
-.content.active { display: block; animation: fadeIn 0.3s ease; }
-@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+/* Content */
+.content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px 20px 100px;
+  display: none;
+  -webkit-overflow-scrolling: touch;
+}
+.content.active { display: block; }
 
-/* Stats Cards */
-.stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px; }
+/* Stats */
+.stats-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 16px;
+}
 .stat-card {
-  background: var(--card); border: 1px solid var(--card-border); border-radius: 20px;
-  padding: 18px; backdrop-filter: blur(20px); position: relative; overflow: hidden;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px;
+  position: relative;
+  overflow: hidden;
 }
-.stat-card::before {
-  content: ''; position: absolute; top: -50%; right: -50%; width: 100px; height: 100px;
-  background: var(--gradient); opacity: 0.15; border-radius: 50%; filter: blur(20px);
+.stat-card::after {
+  content: '';
+  position: absolute;
+  top: -20px; right: -20px;
+  width: 60px; height: 60px;
+  border-radius: 50%;
+  opacity: 0.08;
+  pointer-events: none;
 }
-.stat-value { font-size: 28px; font-weight: 800; background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-.stat-label { font-size: 12px; color: var(--muted); font-weight: 500; margin-top: 4px; text-transform: uppercase; letter-spacing: 1px; }
+.stat-card:nth-child(1)::after { background: var(--accent); }
+.stat-card:nth-child(2)::after { background: var(--success); }
+.stat-card:nth-child(3)::after { background: var(--info); }
+.stat-card:nth-child(4)::after { background: var(--danger); }
+.stat-value { font-size: 26px; font-weight: 800; line-height: 1; margin-bottom: 4px; }
+.stat-label { font-size: 11px; color: var(--text-secondary); font-weight: 600; text-transform: uppercase; letter-spacing: 0.8px; }
 
-/* Progress ring */
-.progress-section { background: var(--card); border: 1px solid var(--card-border); border-radius: 24px; padding: 24px; margin-bottom: 20px; backdrop-filter: blur(20px); display: flex; align-items: center; gap: 20px; }
-.ring { position: relative; width: 120px; height: 120px; }
-.ring svg { transform: rotate(-90deg); }
-.ring-bg { fill: none; stroke: rgba(255,255,255,0.08); stroke-width: 10; }
-.ring-fill { fill: none; stroke: url(#grad); stroke-width: 10; stroke-linecap: round; transition: stroke-dashoffset 1s ease; }
-.ring-text { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; }
-.ring-percent { font-size: 28px; font-weight: 800; }
-.ring-sub { font-size: 11px; color: var(--muted); }
-.progress-info h3 { font-size: 16px; font-weight: 700; margin-bottom: 6px; }
-.progress-info p { font-size: 13px; color: var(--muted); line-height: 1.5; }
+/* Progress ring section */
+.progress-section {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+.ring { position: relative; width: 100px; height: 100px; flex-shrink: 0; }
+.ring svg { transform: rotate(-90deg); width: 100px; height: 100px; }
+.ring-bg { fill: none; stroke: rgba(255,255,255,0.04); stroke-width: 8; }
+.ring-fill {
+  fill: none; stroke: var(--accent); stroke-width: 8; stroke-linecap: round;
+  transition: stroke-dashoffset 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  filter: drop-shadow(0 0 6px var(--accent-glow));
+}
+.ring-text {
+  position: absolute; inset: 0;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+}
+.ring-percent { font-size: 22px; font-weight: 800; }
+.ring-sub { font-size: 10px; color: var(--text-secondary); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+.progress-info h3 { font-size: 15px; font-weight: 700; margin-bottom: 4px; }
+.progress-info p { font-size: 13px; color: var(--text-secondary); line-height: 1.4; }
+
+/* Priority breakdown */
+.breakdown { margin-bottom: 16px; }
+.breakdown-header { font-size: 12px; font-weight: 700; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 12px; }
+.breakdown-row { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+.breakdown-label { width: 50px; font-size: 12px; font-weight: 600; color: var(--text-secondary); text-transform: capitalize; }
+.breakdown-bar-bg { flex: 1; height: 6px; background: rgba(255,255,255,0.04); border-radius: 3px; overflow: hidden; }
+.breakdown-bar-fill { height: 100%; border-radius: 3px; transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1); }
+.breakdown-count { width: 20px; text-align: right; font-size: 12px; font-weight: 700; color: var(--text-secondary); }
 
 /* Task Card */
 .task-card {
-  background: var(--card); border: 1px solid var(--card-border); border-radius: 20px;
-  padding: 16px; margin-bottom: 12px; backdrop-filter: blur(20px); transition: 0.3s;
-  animation: slideIn 0.4s ease;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px;
+  margin-bottom: 10px;
+  transition: transform 0.15s, background 0.15s;
+  will-change: transform;
 }
-@keyframes slideIn { from { opacity: 0; transform: translateX(-20px); } to { opacity: 1; transform: translateX(0); } }
-.task-card:active { transform: scale(0.98); }
+.task-card:active { transform: scale(0.98); background: var(--bg-card-hover); }
 .task-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; }
-.task-title { font-size: 16px; font-weight: 600; flex: 1; }
-.task-title.done { text-decoration: line-through; color: var(--muted); }
-.task-desc { font-size: 13px; color: var(--muted); margin-top: 4px; line-height: 1.4; }
-.task-meta { display: flex; gap: 8px; margin-top: 10px; flex-wrap: wrap; }
+.task-title { font-size: 15px; font-weight: 600; flex: 1; line-height: 1.3; }
+.task-title.done { text-decoration: line-through; color: var(--text-tertiary); }
+.task-desc { font-size: 13px; color: var(--text-secondary); margin-top: 4px; line-height: 1.4; }
+.task-meta { display: flex; gap: 6px; margin-top: 10px; flex-wrap: wrap; }
 .badge {
-  padding: 4px 10px; border-radius: 999px; font-size: 11px; font-weight: 700; text-transform: uppercase;
-  letter-spacing: 0.5px;
+  display: inline-flex; align-items: center; gap: 4px;
+  padding: 3px 8px; border-radius: 6px;
+  font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.4px;
 }
-.badge-high { background: rgba(255,75,110,0.2); color: var(--danger); }
-.badge-medium { background: rgba(255,181,71,0.2); color: var(--warning); }
-.badge-low { background: rgba(0,211,149,0.2); color: var(--success); }
-.badge-timer { background: rgba(124,92,255,0.2); color: var(--primary2); }
+.badge-high { background: var(--danger-dim); color: var(--danger); }
+.badge-medium { background: var(--accent-dim); color: var(--accent); }
+.badge-low { background: var(--success-dim); color: var(--success); }
+.badge-timer { background: var(--info-dim); color: var(--info); }
+.badge-estimate { background: rgba(255,255,255,0.04); color: var(--text-secondary); }
+.badge-done { background: var(--success-dim); color: var(--success); }
+
+/* Progress bar on task card */
+.task-progress { margin-top: 12px; }
+.task-progress-bg {
+  height: 4px;
+  background: rgba(255,255,255,0.04);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.task-progress-fill {
+  height: 100%;
+  background: var(--accent);
+  border-radius: 2px;
+  transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 0 8px var(--accent-glow);
+}
+.task-progress-text {
+  display: flex; justify-content: space-between;
+  margin-top: 6px; font-size: 10px; color: var(--text-tertiary); font-weight: 600;
+}
+
+/* Task actions */
 .task-actions { display: flex; gap: 8px; margin-top: 12px; }
 .task-btn {
-  flex: 1; padding: 10px; border-radius: 12px; border: none; font-size: 12px; font-weight: 700;
-  cursor: pointer; transition: 0.2s; display: flex; align-items: center; justify-content: center; gap: 6px;
+  flex: 1;
+  padding: 10px;
+  border-radius: var(--radius-sm);
+  border: none;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center; gap: 6px;
+  transition: transform 0.1s, opacity 0.15s;
+  font-family: inherit;
 }
 .task-btn:active { transform: scale(0.95); }
-.btn-primary { background: var(--gradient); color: white; }
-.btn-secondary { background: rgba(255,255,255,0.08); color: white; border: 1px solid var(--card-border); }
-.btn-danger { background: rgba(255,75,110,0.2); color: var(--danger); }
-.task-btn:disabled { opacity: 0.4; cursor: not-allowed; }
-.timer-display { font-family: 'Courier New', monospace; font-size: 18px; font-weight: 700; letter-spacing: 1px; }
+.task-btn:disabled { opacity: 0.3; cursor: not-allowed; }
+.btn-primary { background: var(--accent); color: #000; }
+.btn-secondary { background: rgba(255,255,255,0.06); color: var(--text); border: 1px solid var(--border); }
+.btn-danger { background: var(--danger-dim); color: var(--danger); }
+.btn-success { background: var(--success-dim); color: var(--success); }
+
+/* Timer display */
+.timer-running {
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  padding: 10px; background: var(--info-dim); border-radius: var(--radius-sm);
+  margin-bottom: 10px; border: 1px solid rgba(59,130,246,0.2);
+}
+.timer-dot {
+  width: 8px; height: 8px; border-radius: 50%; background: var(--info);
+  animation: pulse 1.5s ease infinite;
+}
+@keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.3; } }
+.timer-text { font-family: 'SF Mono', 'Fira Code', monospace; font-size: 15px; font-weight: 700; color: var(--info); letter-spacing: 0.5px; }
 
 /* Empty state */
-.empty { text-align: center; padding: 60px 20px; color: var(--muted); }
-.empty-icon { font-size: 64px; margin-bottom: 16px; opacity: 0.5; }
+.empty { text-align: center; padding: 80px 20px; color: var(--text-tertiary); }
+.empty-icon { font-size: 56px; margin-bottom: 16px; opacity: 0.6; }
+.empty h3 { font-size: 18px; font-weight: 700; color: var(--text-secondary); margin-bottom: 6px; }
+.empty p { font-size: 14px; }
 
 /* FAB */
 .fab {
-  position: fixed; bottom: 24px; right: 24px; width: 56px; height: 56px; border-radius: 50%;
-  background: var(--gradient); color: white; border: none; font-size: 28px; display: flex;
-  align-items: center; justify-content: center; box-shadow: 0 8px 24px rgba(124,92,255,0.5); cursor: pointer; z-index: 50;
+  position: fixed; bottom: 20px; right: 20px;
+  width: 52px; height: 52px; border-radius: 16px;
+  background: var(--accent); color: #000; border: none;
+  font-size: 24px; display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 8px 24px var(--accent-glow);
+  cursor: pointer; z-index: 50;
+  transition: transform 0.15s;
 }
-.fab:active { transform: scale(0.9); }
+.fab:active { transform: scale(0.92); }
 
 /* Modal */
 .modal-overlay {
-  display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6); backdrop-filter: blur(8px);
-  align-items: flex-end; justify-content: center; z-index: 100; animation: fadeIn 0.2s ease;
+  display: none; position: fixed; inset: 0;
+  background: rgba(0,0,0,0.7);
+  align-items: flex-end; justify-content: center;
+  z-index: 100;
 }
 .modal-overlay.open { display: flex; }
 .modal {
-  background: linear-gradient(180deg, #1e1b4b 0%, #0f0c29 100%); width: 100%; max-width: 600px;
-  border-radius: 28px 28px 0 0; padding: 24px; border: 1px solid var(--card-border); border-bottom: none;
-  animation: slideUp 0.3s cubic-bezier(0.16,1,0.3,1);
+  background: var(--bg-elev);
+  width: 100%; max-width: 600px;
+  border-radius: 24px 24px 0 0;
+  padding: 24px;
+  border: 1px solid var(--border);
+  border-bottom: none;
+  animation: slideUp 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
-.modal h2 { font-size: 22px; font-weight: 800; margin-bottom: 18px; }
+.modal h2 { font-size: 20px; font-weight: 800; margin-bottom: 18px; }
 .form-group { margin-bottom: 14px; }
-.form-group label { display: block; font-size: 12px; font-weight: 600; color: var(--muted); margin-bottom: 6px; text-transform: uppercase; letter-spacing: 1px; }
+.form-group label { display: block; font-size: 11px; font-weight: 700; color: var(--text-secondary); margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.8px; }
 .form-input {
-  width: 100%; padding: 14px 16px; background: rgba(255,255,255,0.06); border: 1px solid var(--card-border);
-  border-radius: 14px; color: white; font-size: 15px; outline: none; transition: 0.2s;
+  width: 100%; padding: 12px 14px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  color: var(--text); font-size: 15px;
+  outline: none; transition: border-color 0.2s, box-shadow 0.2s;
+  font-family: inherit;
 }
-.form-input:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(124,92,255,0.2); }
-select.form-input { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23a0a0c0' d='M6 8L1 3h10z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 16px center; }
+.form-input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-dim); }
+select.form-input { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath fill='%235a5a6e' d='M0 0l5 6 5-6z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; }
 .btn-row { display: flex; gap: 10px; margin-top: 20px; }
-.btn { flex: 1; padding: 14px; border-radius: 14px; border: none; font-size: 15px; font-weight: 700; cursor: pointer; }
-.btn-primary { background: var(--gradient); color: white; }
-.btn-ghost { background: rgba(255,255,255,0.08); color: white; }
+.btn { flex: 1; padding: 14px; border-radius: var(--radius-sm); border: none; font-size: 14px; font-weight: 700; cursor: pointer; font-family: inherit; }
+.btn-primary { background: var(--accent); color: #000; }
+.btn-ghost { background: rgba(255,255,255,0.06); color: var(--text-secondary); }
 
 /* Scrollbar */
-::-webkit-scrollbar { width: 4px; }
-::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 4px; }
+::-webkit-scrollbar { width: 3px; }
+::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.08); border-radius: 3px; }
 </style>
 </head>
 <body>
 
-<svg width="0" height="0" style="position:absolute">
-  <defs>
-    <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" stop-color="#7c5cff" />
-      <stop offset="100%" stop-color="#5ee7df" />
-    </linearGradient>
-  </defs>
-</svg>
-
 <div class="header">
-  <h1><span>TaskMaster</span> Pro</h1>
-  <div class="header-actions">
-    <div class="icon-btn" onclick="clearCompleted()" title="Clear completed">🗑️</div>
+  <div class="header-left">
+    <h1><div class="logo-mark">TM</div> TaskMaster</h1>
+  </div>
+  <div class="header-right">
+    <div class="icon-btn" onclick="clearCompleted()" title="Clear completed">🗑</div>
   </div>
 </div>
 
@@ -177,51 +345,49 @@ select.form-input { appearance: none; background-image: url("data:image/svg+xml,
   <div class="tab" onclick="switchTab('stats')">Progress</div>
 </div>
 
-<!-- TASKS TAB -->
 <div id="tab-tasks" class="content active">
   <div id="taskList"></div>
 </div>
 
-<!-- STATS TAB -->
 <div id="tab-stats" class="content">
   <div class="stats-grid">
     <div class="stat-card">
       <div class="stat-value" id="stat-total">0</div>
-      <div class="stat-label">Total Tasks</div>
+      <div class="stat-label">Total</div>
     </div>
     <div class="stat-card">
       <div class="stat-value" id="stat-done">0</div>
-      <div class="stat-label">Completed</div>
+      <div class="stat-label">Done</div>
     </div>
     <div class="stat-card">
-      <div class="stat-value" id="stat-progress">0%</div>
+      <div class="stat-value" id="stat-pct">0%</div>
       <div class="stat-label">Progress</div>
     </div>
     <div class="stat-card">
       <div class="stat-value" id="stat-streak">0</div>
-      <div class="stat-label">Day Streak</div>
+      <div class="stat-label">Streak</div>
     </div>
   </div>
 
   <div class="progress-section">
     <div class="ring">
-      <svg width="120" height="120">
-        <circle class="ring-bg" cx="60" cy="60" r="54"></circle>
-        <circle class="ring-fill" id="ring-fill" cx="60" cy="60" r="54" stroke-dasharray="339.292" stroke-dashoffset="339.292"></circle>
+      <svg viewBox="0 0 100 100">
+        <circle class="ring-bg" cx="50" cy="50" r="42"></circle>
+        <circle class="ring-fill" id="ring-fill" cx="50" cy="50" r="42" stroke-dasharray="263.893" stroke-dashoffset="263.893"></circle>
       </svg>
       <div class="ring-text">
-        <div class="ring-percent" id="ring-percent">0%</div>
-        <div class="ring-sub">complete</div>
+        <div class="ring-percent" id="ring-pct">0%</div>
+        <div class="ring-sub">done</div>
       </div>
     </div>
     <div class="progress-info">
-      <h3>Today's Focus</h3>
-      <p id="progress-msg">Add tasks to start tracking your productivity!</p>
+      <h3 id="progress-title">Ready to focus?</h3>
+      <p id="progress-msg">Add tasks and start your first timer to build momentum.</p>
     </div>
   </div>
 
-  <div class="stat-card" style="margin-bottom:20px">
-    <div class="stat-label" style="margin-bottom:10px">Priority Breakdown</div>
+  <div class="breakdown">
+    <div class="breakdown-header">Priority Breakdown</div>
     <div id="priority-bars"></div>
   </div>
 </div>
@@ -232,7 +398,7 @@ select.form-input { appearance: none; background-image: url("data:image/svg+xml,
   <div class="modal">
     <h2>New Task</h2>
     <div class="form-group">
-      <label>Task Title</label>
+      <label>Title</label>
       <input class="form-input" id="inp-title" placeholder="What needs to be done?" maxlength="120" />
     </div>
     <div class="form-group">
@@ -248,47 +414,35 @@ select.form-input { appearance: none; background-image: url("data:image/svg+xml,
       </select>
     </div>
     <div class="form-group">
-      <label>Estimated Time (minutes)</label>
+      <label>Time Block (minutes)</label>
       <input class="form-input" id="inp-time" type="number" value="25" min="1" max="480" />
     </div>
     <div class="btn-row">
       <button class="btn btn-ghost" onclick="closeModal()">Cancel</button>
-      <button class="btn btn-primary" onclick="addTask()">Create Task</button>
+      <button class="btn btn-primary" onclick="addTask()">Create</button>
     </div>
   </div>
 </div>
 
 <script>
-const STORAGE_KEY = 'tm_tasks';
-const STREAK_KEY = 'tm_streak';
-const LAST_DATE_KEY = 'tm_last_date';
-let tasks = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
-let activeTimer = null;
-let timerInterval = null;
-let timerRemaining = 0;
+const KEY = 'tm_tasks_v3';
+let tasks = JSON.parse(localStorage.getItem(KEY) || '[]');
+let timer = null;
+let timerId = null;
 
-function save() { localStorage.setItem(STORAGE_KEY, JSON.stringify(tasks)); }
-function uid() { return Date.now() + Math.floor(Math.random()*1000); }
-
-function getToday() { return new Date().toISOString().split('T')[0]; }
-function updateStreak() {
-  const last = localStorage.getItem(LAST_DATE_KEY);
-  const streak = parseInt(localStorage.getItem(STREAK_KEY) || '0');
-  const today = getToday();
-  if (last !== today) {
-    const yesterday = new Date(Date.now() - 86400000).toISOString().split('T')[0];
-    const newStreak = (last === yesterday) ? streak + 1 : (last === today ? streak : 1);
-    localStorage.setItem(STREAK_KEY, newStreak);
-    localStorage.setItem(LAST_DATE_KEY, today);
-  }
+function save() { localStorage.setItem(KEY, JSON.stringify(tasks)); }
+function uid() { return Date.now() + Math.floor(Math.random() * 10000); }
+function esc(s) { const d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
+function fmtTime(s) {
+  const h = Math.floor(s / 3600); const m = Math.floor((s % 3600) / 60); const sec = s % 60;
+  return h > 0 ? h + ':' + String(m).padStart(2, '0') + ':' + String(sec).padStart(2, '0') : m + ':' + String(sec).padStart(2, '0');
 }
-updateStreak();
 
 function switchTab(t) {
-  document.querySelectorAll('.tab').forEach((el,i) => el.classList.toggle('active', (t==='tasks' && i===0) || (t==='stats' && i===1)));
+  document.querySelectorAll('.tab').forEach((el, i) => el.classList.toggle('active', (t === 'tasks' && i === 0) || (t === 'stats' && i === 1)));
   document.querySelectorAll('.content').forEach(c => c.classList.remove('active'));
-  document.getElementById('tab-'+t).classList.add('active');
-  if (t==='stats') renderStats();
+  document.getElementById('tab-' + t).classList.add('active');
+  if (t === 'stats') renderStats();
 }
 
 function renderTasks() {
@@ -298,114 +452,113 @@ function renderTasks() {
   const show = active.length ? active : (done.length ? done : []);
 
   if (!show.length) {
-    list.innerHTML = '<div class="empty"><div class="empty-icon">🎯</div><p>No tasks yet. Tap + to add your first task!</p></div>';
+    list.innerHTML = '<div class="empty"><div class="empty-icon">🎯</div><h3>No tasks yet</h3><p>Tap the + button to add your first task.</p></div>';
     return;
   }
 
   list.innerHTML = show.map(t => {
-    const isRunning = activeTimer === t.id;
-    const timeStr = t.estimated ? formatTime(t.estimated * 60) : '--:--';
+    const isRunning = timer === t.id;
+    const total = (t.estimate || 25) * 60;
     const elapsed = t.elapsed || 0;
-    const remain = t.estimated ? Math.max(0, t.estimated*60 - elapsed) : 0;
-    const pct = t.estimated ? Math.min(100, Math.round((elapsed/(t.estimated*60))*100)) : 0;
+    const pct = t.estimate ? Math.min(100, Math.round((elapsed / total) * 100)) : 0;
+    const remain = Math.max(0, total - elapsed);
+    const timeStr = fmtTime(total);
 
     return `
     <div class="task-card" id="card-${t.id}">
+      ${isRunning ? `<div class="timer-running"><div class="timer-dot"></div><div class="timer-text">${fmtTime(remain)} remaining</div></div>` : ''}
       <div class="task-header">
         <div style="flex:1">
-          <div class="task-title ${t.status==='completed'?'done':''}">${escape(t.title)}</div>
-          ${t.desc ? `<div class="task-desc">${escape(t.desc)}</div>` : ''}
+          <div class="task-title ${t.status === 'completed' ? 'done' : ''}">${esc(t.title)}</div>
+          ${t.desc ? `<div class="task-desc">${esc(t.desc)}</div>` : ''}
         </div>
         <div class="badge badge-${t.priority}">${t.priority}</div>
       </div>
       <div class="task-meta">
-        <div class="badge badge-timer">⏱ ${timeStr}</div>
-        ${t.dueDate ? `<div class="badge" style="background:rgba(255,255,255,0.08);color:#a0a0c0">📅 ${t.dueDate}</div>` : ''}
-        ${t.status==='completed' ? `<div class="badge" style="background:rgba(0,211,149,0.2);color:var(--success)">✓ Done</div>` : ''}
+        <div class="badge badge-estimate">⏱ ${timeStr}</div>
+        ${t.status === 'completed' ? '<div class="badge badge-done">✓ Done</div>' : ''}
       </div>
-      ${t.status !== 'completed' ? `
-      <div style="margin-top:12px; background:rgba(255,255,255,0.04); border-radius:10px; height:6px; overflow:hidden">
-        <div style="width:${pct}%; height:100%; background:var(--gradient); border-radius:10px; transition:width 0.5s ease"></div>
-      </div>
-      <div style="display:flex; justify-content:space-between; margin-top:6px; font-size:11px; color:var(--muted)">
-        <span>Progress</span><span>${pct}%</span>
+      <div class="task-progress">
+        <div class="task-progress-bg">
+          <div class="task-progress-fill" style="width:${pct}%"></div>
+        </div>
+        <div class="task-progress-text">
+          <span>Progress</span>
+          <span>${pct}%</span>
+        </div>
       </div>
       <div class="task-actions">
-        <button class="task-btn btn-primary" onclick="toggleTimer(${t.id})" ${isRunning ? 'disabled' : ''}>
-          ${isRunning ? '⏸ Running' : (t.elapsed ? '▶ Resume' : '▶ Start')}
-        </button>
-        ${isRunning ? `<button class="task-btn btn-danger" onclick="stopTimer(${t.id})">⏹ Stop</button>` : ''}
-        <button class="task-btn btn-secondary" onclick="toggleComplete(${t.id})">${t.status==='completed'?'↩ Undo':'✓ Done'}</button>
-        <button class="task-btn btn-danger" onclick="deleteTask(${t.id})">✕</button>
+        ${t.status !== 'completed' ? `
+          <button class="task-btn btn-primary" onclick="startTimer(${t.id})" ${isRunning ? 'disabled' : ''}>
+            ${isRunning ? '⏸ Running' : (t.elapsed ? '▶ Resume' : '▶ Start')}
+          </button>
+          ${isRunning ? `<button class="task-btn btn-danger" onclick="stopTimer(${t.id})">⏹ Stop</button>` : ''}
+          <button class="task-btn btn-success" onclick="completeTask(${t.id})">✓</button>
+          <button class="task-btn btn-danger" onclick="deleteTask(${t.id})">✕</button>
+        ` : `
+          <button class="task-btn btn-secondary" onclick="undoTask(${t.id})">↩ Undo</button>
+          <button class="task-btn btn-danger" onclick="deleteTask(${t.id})">✕</button>
+        `}
       </div>
-      ` : `
-      <div class="task-actions">
-        <button class="task-btn btn-secondary" onclick="toggleComplete(${t.id})">↩ Undo</button>
-        <button class="task-btn btn-danger" onclick="deleteTask(${t.id})">✕</button>
-      </div>
-      `}
     </div>
   `}).join('');
 }
 
-function formatTime(s) {
-  const h = Math.floor(s/3600); const m = Math.floor((s%3600)/60); const sec = s%60;
-  return h > 0 ? `${h}:${String(m).padStart(2,'0')}:${String(sec).padStart(2,'0')}` : `${m}:${String(sec).padStart(2,'0')}`;
-}
-
-function toggleTimer(id) {
-  if (activeTimer === id) return;
-  if (activeTimer) stopTimer(activeTimer);
+function startTimer(id) {
+  if (timer === id) return;
+  if (timer) stopTimer(timer);
   const t = tasks.find(x => x.id === id);
   if (!t || t.status === 'completed') return;
-  activeTimer = id;
-  timerRemaining = t.estimated ? Math.max(0, t.estimated*60 - (t.elapsed||0)) : 0;
-  timerInterval = setInterval(() => {
-    timerTick(id);
+  timer = id;
+  timerId = setInterval(() => {
+    const task = tasks.find(x => x.id === id);
+    if (!task) { stopTimer(id); return; }
+    task.elapsed = (task.elapsed || 0) + 1;
+    if (task.elapsed >= task.estimate * 60) {
+      stopTimer(id);
+      alert('🎉 Timer complete! Great work on: ' + task.title);
+    }
+    save();
+    renderTasks();
   }, 1000);
   renderTasks();
 }
 
-function timerTick(id) {
-  const t = tasks.find(x => x.id === id);
-  if (!t) { stopTimer(id); return; }
-  t.elapsed = (t.elapsed || 0) + 1;
-  if (t.elapsed >= t.estimated * 60) {
-    stopTimer(id);
-    alert('🎉 Great job! Timer completed for: ' + t.title);
-  }
-  save();
-  renderTasks();
-  if (document.getElementById('tab-stats').classList.contains('active')) renderStats();
-}
-
 function stopTimer(id) {
-  if (timerInterval) clearInterval(timerInterval);
-  timerInterval = null;
-  if (activeTimer === id) activeTimer = null;
+  if (timerId) clearInterval(timerId);
+  timerId = null;
+  if (timer === id) timer = null;
   renderTasks();
 }
 
-function toggleComplete(id) {
+function completeTask(id) {
   const t = tasks.find(x => x.id === id);
   if (!t) return;
-  t.status = t.status === 'completed' ? 'todo' : 'completed';
-  if (t.status === 'completed') { t.completedAt = Date.now(); stopTimer(id); }
-  else { t.completedAt = null; }
+  t.status = 'completed';
+  t.completedAt = Date.now();
+  if (timer === id) stopTimer(id);
+  save(); renderTasks();
+}
+
+function undoTask(id) {
+  const t = tasks.find(x => x.id === id);
+  if (!t) return;
+  t.status = 'todo';
+  t.completedAt = null;
   save(); renderTasks();
 }
 
 function deleteTask(id) {
   if (!confirm('Delete this task?')) return;
   tasks = tasks.filter(x => x.id !== id);
-  if (activeTimer === id) stopTimer(id);
+  if (timer === id) stopTimer(id);
   save(); renderTasks();
 }
 
 function clearCompleted() {
-  const count = tasks.filter(t => t.status === 'completed').length;
-  if (!count) return;
-  if (!confirm(`Remove ${count} completed task(s)?`)) return;
+  const n = tasks.filter(t => t.status === 'completed').length;
+  if (!n) return;
+  if (!confirm('Remove ' + n + ' completed task(s)?')) return;
   tasks = tasks.filter(t => t.status !== 'completed');
   save(); renderTasks();
 }
@@ -413,13 +566,15 @@ function clearCompleted() {
 function addTask() {
   const title = document.getElementById('inp-title').value.trim();
   if (!title) return;
-  const desc = document.getElementById('inp-desc').value.trim();
-  const priority = document.getElementById('inp-priority').value;
-  const time = parseInt(document.getElementById('inp-time').value) || 25;
   tasks.unshift({
-    id: uid(), title, description: desc, status: 'todo', priority,
-    estimated: Math.min(480, Math.max(1, time)),
-    elapsed: 0, createdAt: Date.now()
+    id: uid(),
+    title,
+    desc: document.getElementById('inp-desc').value.trim(),
+    status: 'todo',
+    priority: document.getElementById('inp-priority').value,
+    estimate: Math.min(480, Math.max(1, parseInt(document.getElementById('inp-time').value) || 25)),
+    elapsed: 0,
+    createdAt: Date.now()
   });
   save(); renderTasks(); closeModal();
   document.getElementById('inp-title').value = '';
@@ -428,45 +583,42 @@ function addTask() {
 
 function openModal() { document.getElementById('modal').classList.add('open'); document.getElementById('inp-title').focus(); }
 function closeModal() { document.getElementById('modal').classList.remove('open'); }
-function escape(s) { const d=document.createElement('div'); d.textContent=s; return d.innerHTML; }
 
 function renderStats() {
   const total = tasks.length;
   const done = tasks.filter(t => t.status === 'completed').length;
-  const pct = total ? Math.round((done/total)*100) : 0;
-  const streak = parseInt(localStorage.getItem(STREAK_KEY) || '0');
+  const pct = total ? Math.round((done / total) * 100) : 0;
 
   document.getElementById('stat-total').textContent = total;
   document.getElementById('stat-done').textContent = done;
-  document.getElementById('stat-progress').textContent = pct + '%';
-  document.getElementById('stat-streak').textContent = streak;
+  document.getElementById('stat-pct').textContent = pct + '%';
 
-  const circumference = 2 * Math.PI * 54;
+  const circumference = 2 * Math.PI * 42;
   const offset = circumference - (pct / 100) * circumference;
   document.getElementById('ring-fill').style.strokeDashoffset = offset;
-  document.getElementById('ring-percent').textContent = pct + '%';
+  document.getElementById('ring-pct').textContent = pct + '%';
 
   const msgs = [
-    [0, 'Start adding tasks to build momentum!'],
-    [25, 'Good start! Keep the pace going.'],
-    [50, 'Halfway there! You are on fire.'],
+    [0, 'Ready to focus? Add tasks and start your first timer.'],
+    [25, 'Good start! Keep the momentum going.'],
+    [50, 'Halfway there! You are on fire today.'],
     [75, 'Almost done! Finish strong.'],
-    [100, 'All tasks complete! You are unstoppable.']
+    [100, 'All tasks complete! Absolutely unstoppable.']
   ];
   const msg = msgs.filter(m => pct >= m[0]).pop()[1];
   document.getElementById('progress-msg').textContent = msg;
 
-  const priorities = { low: 0, medium: 0, high: 0 };
-  tasks.forEach(t => priorities[t.priority]++);
-  const max = Math.max(...Object.values(priorities), 1);
-  const colors = { low: 'var(--success)', medium: 'var(--warning)', high: 'var(--danger)' };
-  document.getElementById('priority-bars').innerHTML = Object.entries(priorities).map(([k,v]) => `
-    <div style="display:flex; align-items:center; gap:10px; margin-bottom:8px">
-      <div style="width:60px; font-size:12px; font-weight:600; text-transform:capitalize; color:var(--muted)">${k}</div>
-      <div style="flex:1; height:8px; background:rgba(255,255,255,0.06); border-radius:4px; overflow:hidden">
-        <div style="width:${(v/max)*100}%; height:100%; background:${colors[k]}; border-radius:4px; transition:width 0.5s ease"></div>
+  const counts = { low: 0, medium: 0, high: 0 };
+  tasks.forEach(t => counts[t.priority]++);
+  const max = Math.max(...Object.values(counts), 1);
+  const colors = { low: 'var(--success)', medium: 'var(--accent)', high: 'var(--danger)' };
+  document.getElementById('priority-bars').innerHTML = Object.entries(counts).map(([k, v]) => `
+    <div class="breakdown-row">
+      <div class="breakdown-label">${k}</div>
+      <div class="breakdown-bar-bg">
+        <div class="breakdown-bar-fill" style="width:${(v / max) * 100}%; background:${colors[k]}"></div>
       </div>
-      <div style="width:24px; text-align:right; font-size:12px; font-weight:700">${v}</div>
+      <div class="breakdown-count">${v}</div>
     </div>
   `).join('');
 }
