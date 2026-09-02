@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>TaskMaster</title>
+<style>
+:root {
+  --bg: #f3f4f6;
+  --card: #ffffff;
+  --text: #111827;
+  --muted: #6b7280;
+  --primary: #2563eb;
+  --primary-dark: #1d4ed8;
+  --danger: #ef4444;
+  --success: #10b981;
+  --warning: #f59e0b;
+  --border: #e5e7eb;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+body { background: var(--bg); color: var(--text); padding-bottom: 80px; }
+.header {
+  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+  color: white; padding: 24px 20px; border-radius: 0 0 24px 24px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+.header h1 { font-size: 28px; font-weight: 700; }
+.header p { opacity: 0.9; font-size: 14px; margin-top: 4px; }
+.container { padding: 20px; max-width: 800px; margin: 0 auto; }
+.card {
+  background: var(--card); border-radius: 16px; padding: 16px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05); margin-bottom: 12px;
+  border: 1px solid var(--border); transition: transform 0.15s ease;
+}
+.card:active { transform: scale(0.98); }
+.task-row { display: flex; align-items: center; gap: 12px; }
+.checkbox {
+  width: 24px; height: 24px; border-radius: 50%; border: 2px solid var(--primary);
+  display: flex; align-items: center; justify-content: center; cursor: pointer;
+  flex-shrink: 0;
+}
+.checkbox.done { background: var(--primary); }
+.checkbox.done::after { content: "✓"; color: white; font-size: 14px; font-weight: bold; }
+.task-info { flex: 1; }
+.task-title { font-size: 16px; font-weight: 600; }
+.task-title.done { text-decoration: line-through; color: var(--muted); }
+.task-meta { font-size: 12px; color: var(--muted); margin-top: 2px; }
+.badge {
+  display: inline-block; padding: 2px 8px; border-radius: 999px; font-size: 11px;
+  font-weight: 600; text-transform: uppercase;
+}
+.badge-high { background: #fee2e2; color: var(--danger); }
+.badge-medium { background: #fef3c7; color: var(--warning); }
+.badge-low { background: #d1fae5; color: var(--success); }
+.fab {
+  position: fixed; bottom: 24px; right: 24px; width: 56px; height: 56px;
+  border-radius: 50%; background: var(--primary); color: white; border: none;
+  font-size: 28px; display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.4); cursor: pointer;
+}
+.modal {
+  display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5);
+  align-items: flex-end; justify-content: center; z-index: 100;
+}
+.modal.open { display: flex; }
+.modal-content {
+  background: white; width: 100%; max-width: 600px; border-radius: 24px 24px 0 0;
+  padding: 24px; animation: slideUp 0.3s ease;
+}
+@keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
+.input {
+  width: 100%; padding: 14px 16px; border: 1px solid var(--border); border-radius: 12px;
+  font-size: 16px; margin-bottom: 12px; outline: none;
+}
+.input:focus { border-color: var(--primary); }
+select.input { appearance: none; background: white; }
+.btn-primary {
+  width: 100%; padding: 14px; background: var(--primary); color: white; border: none;
+  border-radius: 12px; font-size: 16px; font-weight: 600; cursor: pointer;
+}
+.btn-danger { background: var(--danger); }
+.filter-bar { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 8px; }
+.chip {
+  padding: 6px 14px; border-radius: 999px; border: 1px solid var(--border);
+  background: white; font-size: 13px; cursor: pointer; white-space: nowrap;
+}
+.chip.active { background: var(--primary); color: white; border-color: var(--primary); }
+.empty { text-align: center; padding: 40px 20px; color: var(--muted); }
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>TaskMaster</h1>
+  <p>Stay organized, get things done</p>
+</div>
+<div class="container">
+  <div class="filter-bar">
+    <div class="chip active" onclick="setFilter('all')">All</div>
+    <div class="chip" onclick="setFilter('todo')">To Do</div>
+    <div class="chip" onclick="setFilter('inprogress')">In Progress</div>
+    <div class="chip" onclick="setFilter('done')">Done</div>
+  </div>
+  <div id="taskList"></div>
+</div>
+<button class="fab" onclick="openModal()">+</button>
+
+<div class="modal" id="modal" onclick="if(event.target===this)closeModal()">
+  <div class="modal-content">
+    <h2 style="margin-bottom:16px;">New Task</h2>
+    <input class="input" id="title" placeholder="What needs to be done?" />
+    <select class="input" id="priority">
+      <option value="low">Low Priority</option>
+      <option value="medium" selected>Medium Priority</option>
+      <option value="high">High Priority</option>
+    </select>
+    <button class="btn-primary" onclick="addTask()">Add Task</button>
+    <button class="btn-primary btn-danger" style="margin-top:8px;" onclick="closeModal()">Cancel</button>
+  </div>
+</div>
+
+<script>
+let tasks = JSON.parse(localStorage.getItem('tm_tasks') || '[]');
+let filter = 'all';
+function save() { localStorage.setItem('tm_tasks', JSON.stringify(tasks)); }
+function render() {
+  const list = document.getElementById('taskList');
+  const filtered = tasks.filter(t => {
+    if (filter === 'all') return true;
+    if (filter === 'done') return t.status === 'completed';
+    if (filter === 'todo') return t.status === 'todo';
+    if (filter === 'inprogress') return t.status === 'in_progress';
+    return true;
+  });
+  if (filtered.length === 0) { list.innerHTML = '<div class="empty">No tasks yet. Tap + to add one!</div>'; return; }
+  list.innerHTML = filtered.map(t => `
+    <div class="card">
+      <div class="task-row">
+        <div class="checkbox ${t.status==='completed'?'done':''}" onclick="toggle(${t.id})"></div>
+        <div class="task-info" onclick="toggle(${t.id})">
+          <div class="task-title ${t.status==='completed'?'done':''}">${escapeHtml(t.title)}</div>
+          <div class="task-meta">${t.priority.toUpperCase()} • ${new Date(t.created).toLocaleDateString()}</div>
+        </div>
+        <span class="badge badge-${t.priority}">${t.priority}</span>
+      </div>
+    </div>
+  `).join('');
+}
+function escapeHtml(text) {
+  const div = document.createElement('div'); div.textContent = text; return div.innerHTML;
+}
+function toggle(id) {
+  const t = tasks.find(x => x.id === id);
+  t.status = t.status === 'completed' ? 'todo' : 'completed';
+  save(); render();
+}
+function addTask() {
+  const title = document.getElementById('title').value.trim();
+  if (!title) return;
+  tasks.unshift({ id: Date.now(), title, status: 'todo', priority: document.getElementById('priority').value, created: Date.now() });
+  save(); render(); closeModal();
+  document.getElementById('title').value = '';
+}
+function setFilter(f) { filter = f; document.querySelectorAll('.chip').forEach(c => c.classList.toggle('active', c.textContent.toLowerCase().includes(f==='inprogress'?'in progress':f))); render(); }
+function openModal() { document.getElementById('modal').classList.add('open'); }
+function closeModal() { document.getElementById('modal').classList.remove('open'); }
+render();
+</script>
+</body>
+</html>
