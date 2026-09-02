@@ -8,6 +8,7 @@ mkdir -p gen/com/taskmaster/app obj dex
 aapt package -m -J gen \
   -M app/src/main/AndroidManifest.xml \
   -S app/src/main/res \
+  -A app/src/main/assets \
   -I /tmp/platforms/android-11/android.jar \
   --min-sdk-version 21 --target-sdk-version 30 \
   --version-code 1 --version-name 1.0
@@ -21,9 +22,10 @@ javac --release 11 -cp /tmp/platforms/android-11/android.jar:gen -d obj \
 /tmp/build-tools-33.0.2/android-13/d8 --min-api 21 --output dex obj/**/*.class
 
 # Package APK
-aapt package -f -m \
+aapt package -f \
   -M app/src/main/AndroidManifest.xml \
   -S app/src/main/res \
+  -A app/src/main/assets \
   -I /tmp/platforms/android-11/android.jar \
   --min-sdk-version 21 --target-sdk-version 30 \
   --version-code 1 --version-name 1.0 \
