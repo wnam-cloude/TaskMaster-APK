@@ -1,12 +1,16 @@
-# TaskMaster APK
+# TaskMaster Pro APK
 
-A lightweight, installable Android task management app built as a native APK with a WebView frontend.
+A stunning, offline-first Android task manager with built-in timers, progress tracking, and a beautiful glassmorphism UI.
 
 ## Features
-- Add, complete, and filter tasks (To Do / In Progress / Done)
-- Persistent local storage (localStorage)
-- Beautiful Material-inspired UI
+- Add, complete, and filter tasks (To Do / Done)
+- Built-in task timer (Pomodoro-style time blocks)
+- Progress ring & daily stats dashboard
+- Day streak tracking
+- Priority breakdown charts
+- Animated gradient background & glassmorphism cards
 - Offline-first — no server required
+- Persistent local storage
 
 ## Installation
 Download [`TaskMaster.apk`](https://github.com/wnam-cloude/TaskMaster-APK/releases/latest/download/TaskMaster.apk) and open it on your Android device.
