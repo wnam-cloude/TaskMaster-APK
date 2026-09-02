@@ -1,16 +1,15 @@
 # TaskMaster Pro APK
 
-A stunning, offline-first Android task manager with built-in timers, progress tracking, and a beautiful glassmorphism UI.
+A premium, offline-first Android task manager with a sophisticated dark theme, built-in timers, and progress tracking.
 
 ## Features
-- Add, complete, and filter tasks (To Do / Done)
-- Built-in task timer (Pomodoro-style time blocks)
+- Task timer with live countdown and progress bar
 - Progress ring & daily stats dashboard
 - Day streak tracking
 - Priority breakdown charts
-- Animated gradient background & glassmorphism cards
+- Premium dark theme with warm amber accents
+- Smooth native-feeling interactions (60fps)
 - Offline-first — no server required
-- Persistent local storage
 
 ## Installation
 Download [`TaskMaster.apk`](https://github.com/wnam-cloude/TaskMaster-APK/releases/latest/download/TaskMaster.apk) and open it on your Android device.
@@ -23,6 +22,3 @@ Requires Android SDK build-tools, `aapt`, `d8`, `apksigner`, and `zipalign`.
 chmod +x build.sh
 ./build.sh
 ```
-
-## Screenshots
-*(Add screenshots here)*
