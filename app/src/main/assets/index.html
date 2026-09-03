@@ -3,367 +3,58 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-<title>TaskMaster Pro</title>
+<title>TaskMaster</title>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
-:root {
-  --bg:#09090e;--bg1:#0f0f16;--bg2:#16161f;--bg3:#1c1c28;
-  --bd:rgba(255,255,255,.05);--bd2:rgba(255,255,255,.1);
-  --tx:#eeeef0;--tx2:#8d8da0;--tx3:#5a5a6e;
-  --acc:#fbbf24;--accD:rgba(251,191,36,.12);--accG:rgba(251,191,36,.3);
-  --suc:#34d399;--sucD:rgba(52,211,153,.12);
-  --dan:#f87171;--danD:rgba(248,113,113,.12);
-  --inf:#60a5fa;--infD:rgba(96,165,250,.12);
-}
-*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
-html,body{height:100%;overflow:hidden;font-family:'Plus Jakarta Sans',system-ui,sans-serif;background:var(--bg);color:var(--tx)}
-
-/* ─── Layout ─── */
-.app{display:flex;flex-direction:column;height:100%}
-.header{padding:16px 20px 10px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--bd);flex-shrink:0}
-.logo{display:flex;align-items:center;gap:10px}
-.mark{width:30px;height:30px;border-radius:10px;background:var(--acc);color:#000;display:grid;place-items:center;font-weight:800;font-size:13px;box-shadow:0 0 20px var(--accG)}
-.title{font-size:18px;font-weight:800;letter-spacing:-.3px}
-.actions{display:flex;gap:6px}
-
-.tabs{display:flex;gap:4px;padding:8px 20px;flex-shrink:0}
-.tab{flex:1;padding:9px;text-align:center;border-radius:10px;font-size:12px;font-weight:600;border:1px solid var(--bd);background:transparent;color:var(--tx2);cursor:pointer;transition:background .2s,color .2s}
-.tab.on{background:var(--acc);color:#000;border-color:var(--acc);font-weight:700}
-
-.body{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:16px 20px 100px;display:none}
-.body.on{display:block}
-
-/* ─── Cards ─── */
-.card{background:var(--bg1);border:1px solid var(--bd);border-radius:16px;padding:14px;margin-bottom:10px;transition:transform .1s ease}
-.card:active{transform:scale(.985)}
-
-/* ─── Focus Card (big hero stat) ─── */
-.focus{background:linear-gradient(135deg,var(--bg2),var(--bg3));border:1px solid var(--bd2);border-radius:20px;padding:20px;margin-bottom:16px;position:relative;overflow:hidden}
-.focus::after{content:'';position:absolute;top:-30px;right:-30px;width:80px;height:80px;border-radius:50%;background:var(--acc);opacity:.07;filter:blur(20px)}
-.focus-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
-.focus-label{font-size:11px;font-weight:700;color:var(--tx2);text-transform:uppercase;letter-spacing:.8px}
-.frog-badge{display:inline-flex;align-items:center;gap:4px;padding:4px 10px;border-radius:999px;background:var(--accD);color:var(--acc);font-size:10px;font-weight:700}
-.focus-ring{width:70px;height:70px;flex-shrink:0}
-.focus-ring svg{width:70px;height:70px;transform:rotate(-90deg)}
-.focus-ring .rBg{fill:none;stroke:rgba(255,255,255,.04);stroke-width:6}
-.focus-ring .rFill{fill:none;stroke:var(--acc);stroke-width:6;stroke-linecap:round;transition:stroke-dashoffset .6s cubic-bezier(.4,0,.2,1)}
-.pct-center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
-.pct-num{font-size:18px;font-weight:800;line-height:1}
-.pct-sub{font-size:9px;color:var(--tx3);font-weight:600;text-transform:uppercase;letter-spacing:.5px}
-.focus-info{margin-top:16px}
-.focus-title{font-size:15px;font-weight:700;margin-bottom:3px}
-.focus-sub{font-size:12px;color:var(--tx2);line-height:1.4}
-
-/* ─── Stat pills ─── */
-.stats{display:flex;gap:8px;margin-bottom:16px;overflow-x:auto;padding-bottom:4px}
-.stat{min-width:70px;padding:10px 12px;background:var(--bg1);border:1px solid var(--bd);border-radius:12px;text-align:center;flex-shrink:0}
-.stat-val{font-size:20px;font-weight:800;line-height:1}
-.stat-lbl{font-size:10px;color:var(--tx3);font-weight:600;margin-top:3px;text-transform:uppercase;letter-spacing:.5px}
-
-/* ─── Priority bars ─── */
-.section-title{font-size:11px;font-weight:700;color:var(--tx2);text-transform:uppercase;letter-spacing:.8px;margin-bottom:10px}
-.bar-row{display:flex;align-items:center;gap:8px;margin-bottom:8px}
-.bar-label{width:52px;font-size:11px;font-weight:600;color:var(--tx2);text-transform:capitalize}
-.bar-bg{flex:1;height:5px;background:rgba(255,255,255,.04);border-radius:3px;overflow:hidden}
-.bar-fill{height:100%;border-radius:3px;transition:width .5s cubic-bezier(.4,0,.2,1)}
-.bar-count{width:18px;text-align:right;font-size:11px;font-weight:700;color:var(--tx3)}
-
-/* ─── Task card ─── */
-.task-card .tHead{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
-.task-card .tTitle{font-size:14px;font-weight:600;flex:1;line-height:1.3}
-.task-card .tTitle.done{text-decoration:line-through;color:var(--tx3)}
-.task-card .tDesc{font-size:12px;color:var(--tx2);margin-top:3px;line-height:1.4}
-.task-card .meta{display:flex;gap:5px;margin-top:8px;flex-wrap:wrap}
-.tag{display:inline-flex;align-items:center;gap:3px;padding:2px 8px;border-radius:6px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.4px}
-.tag-high{background:var(--danD);color:var(--dan)}
-.tag-med{background:var(--accD);color:var(--acc)}
-.tag-low{background:var(--sucD);color:var(--suc)}
-.tag-inf{background:var(--infD);color:var(--inf)}
-.tag-done{background:var(--sucD);color:var(--suc)}
-.tag-time{background:rgba(255,255,255,.04);color:var(--tx2)}
-
-.task-progress{margin-top:10px}
-.task-bar{height:4px;background:rgba(255,255,255,.04);border-radius:2px;overflow:hidden}
-.task-bar-fill{height:100%;background:var(--acc);border-radius:2px;transition:width .4s cubic-bezier(.4,0,.2,1)}
-.task-meta-text{display:flex;justify-content:space-between;margin-top:4px;font-size:10px;color:var(--tx3);font-weight:600}
-
-.timer-live{display:flex;align-items:center;gap:8px;padding:8px 12px;background:var(--infD);border:1px solid rgba(96,165,250,.15);border-radius:10px;margin-bottom:8px}
-.pulse{width:6px;height:6px;border-radius:50%;background:var(--inf);animation:pulse 1.2s ease infinite}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:.2}}
-.tLive{font-family:monospace;font-size:14px;font-weight:700;color:var(--inf);letter-spacing:.5px}
-
-.actions{display:flex;gap:6px;margin-top:10px}
-.btn{flex:1;padding:9px;border-radius:10px;border:none;font-size:11px;font-weight:700;cursor:pointer;font-family:inherit;transition:opacity .1s}
-.btn:active{opacity:.7}
-.btn-a{background:var(--acc);color:#000}
-.btn-s{background:rgba(255,255,255,.06);color:var(--tx);border:1px solid var(--bd)}
-.btn-d{background:var(--danD);color:var(--dan)}
-.btn-su{background:var(--sucD);color:var(--suc)}
-
-/* ─── Empty ─── */
-.empty{text-align:center;padding:60px 20px;color:var(--tx3)}
-.empty .em{font-size:48px;opacity:.5;margin-bottom:12px}
-.empty h3{font-size:16px;font-weight:700;color:var(--tx2);margin-bottom:4px}
-
-/* ─── FAB ─── */
-.fab{position:fixed;bottom:20px;right:20px;width:50px;height:50px;border-radius:14px;background:var(--acc);color:#000;border:none;font-size:22px;display:grid;place-items:center;box-shadow:0 6px 20px var(--accG);cursor:pointer;z-index:50;transition:transform .15s}
-.fab:active{transform:scale(.9)}
-
-/* ─── Modal ─── */
-.m-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:100;align-items:flex-end;justify-content:center}
-.m-overlay.open{display:flex}
-.modal{background:var(--bg1);width:100%;max-width:600px;border-radius:20px 20px 0 0;padding:24px;border:1px solid var(--bd);border-bottom:none;transform:translateY(100%);transition:transform .25s cubic-bezier(.16,1,.3,1)}
-.m-overlay.open .modal{transform:translateY(0)}
-.modal h2{font-size:18px;font-weight:800;margin-bottom:16px}
-.fg{margin-bottom:12px}
-.fg label{display:block;font-size:10px;font-weight:700;color:var(--tx2);margin-bottom:5px;text-transform:uppercase;letter-spacing:.8px}
-.fi{width:100%;padding:11px 13px;background:var(--bg2);border:1px solid var(--bd);border-radius:10px;color:var(--tx);font-size:14px;outline:none;font-family:inherit;transition:border-color .2s}
-.fi:focus{border-color:var(--acc);box-shadow:0 0 0 2px var(--accD)}
-select.fi{appearance:none;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='6'%3E%3Cpath fill='%235a5a6e' d='M0 0l4 6 4-6z'/%3E%3C/svg%3E") no-repeat right 12px center;padding-right:30px}
-.mBtns{display:flex;gap:8px;margin-top:16px}
-.mBtns .btn{padding:12px}
-
-::-webkit-scrollbar{width:2px}
-::-webkit-scrollbar-thumb{background:rgba(255,255,255,.06);border-radius:2px}
+:root { --bg:#ffffff; --bg-card:#f5f5f7; --text:#1d1d1f; --text-sec:#86868b; --acc:#0071e3; --bd:#d2d2d7; }
+body { font-family: 'Inter', system-ui, sans-serif; background: var(--bg); color: var(--text); padding: 20px; }
+.header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+.title { font-size: 28px; font-weight: 700; }
+.modes { display: flex; gap: 8px; margin-bottom: 20px; overflow-x: auto; padding-bottom: 5px; }
+.mode { padding: 6px 12px; border-radius: 16px; background: var(--bg-card); cursor: pointer; font-size: 13px; border: 1px solid var(--bd); }
+.mode.active { background: var(--acc); color: white; }
+.task { background: var(--bg-card); padding: 16px; border-radius: 12px; margin-bottom: 12px; }
+.fab { position: fixed; bottom: 30px; right: 30px; width: 56px; height: 56px; border-radius: 50%; background: var(--acc); color: white; display: grid; place-items: center; font-size: 24px; border: none; }
+.modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.3); display: none; align-items: flex-end; }
+.modal-overlay.open { display: flex; }
+.modal { width: 100%; background: white; border-radius: 20px 20px 0 0; padding: 24px; }
 </style>
 </head>
 <body>
-
-<div class="app">
-  <div class="header">
-    <div class="logo"><div class="mark">TM</div><span class="title">TaskMaster</span></div>
-    <div class="actions">
-      <div class="btn btn-s" onclick="quickCapture()" style="padding:8px 14px;flex:none">⚡ Quick</div>
-      <div class="btn btn-s" onclick="clearCompleted()" style="padding:8px 14px;flex:none">🗑</div>
-    </div>
-  </div>
-  <div class="tabs">
-    <div class="tab on" data-tab="tasks" onclick="goTab('tasks')">Tasks</div>
-    <div class="tab" data-tab="stats" onclick="goTab('stats')">Insights</div>
-  </div>
-  <div id="view-tasks" class="body on"></div>
-  <div id="view-stats" class="body"></div>
+<div class="header">
+    <div class="title">Tasks</div>
+    <div onclick="reset()">Reset</div>
 </div>
-
+<div class="modes">
+    <div class="mode active" onclick="setMode('All')">All</div>
+    <div class="mode" onclick="setMode('Creative')">Creative</div>
+    <div class="mode" onclick="setMode('Logical')">Logical</div>
+    <div class="mode" onclick="setMode('Technical')">Technical</div>
+</div>
+<div id="taskList"></div>
 <button class="fab" onclick="openModal()">+</button>
-
-<div class="m-overlay" id="overlay" onclick="if(event.target===this)closeModal()">
-  <div class="modal">
-    <h2>New Task</h2>
-    <div class="fg"><label>Title</label><input class="fi" id="iTitle" placeholder="What needs to be done?" maxlength="120"></div>
-    <div class="fg"><label>Description</label><input class="fi" id="iDesc" placeholder="Notes…" maxlength="300"></div>
-    <div class="fg"><label>Priority</label>
-      <select class="fi" id="iPri"><option value="low">Low</option><option value="med" selected>Medium</option><option value="high">High</option></select>
+<div class="modal-overlay" id="overlay" onclick="if(event.target===this)closeModal()">
+    <div class="modal">
+        <input style="width:100%;border:none;font-size:18px;margin-bottom:10px" id="iTitle" placeholder="Task title...">
+        <textarea style="width:100%;border:none;margin-bottom:10px" id="iDesc" placeholder="Notes..."></textarea>
+        <button style="width:100%;padding:12px;background:var(--acc);color:white;border:none;border-radius:10px" onclick="addTask()">Add Task</button>
     </div>
-    <div class="fg"><label>Estimated Minutes</label><input class="fi" id="iEst" type="number" value="25" min="1" max="480"></div>
-    <div class="fg"><label>Energy Level</label>
-      <select class="fi" id="iEgy"><option value="high">🔥 High — needs focus</option><option value="med" selected>⚡ Medium — steady pace</option><option value="low">☁️ Low — easy / routine</option></select>
-    </div>
-    <div class="fg"><label>When &amp; Where?</label><input class="fi" id="iWhere" placeholder="e.g. After lunch in the library"></div>
-    <div class="mBtns">
-      <button class="btn btn-s" onclick="closeModal()">Cancel</button>
-      <button class="btn btn-a" onclick="addTask()">Create</button>
-    </div>
-  </div>
 </div>
-
 <script>
-const K='tm_v4';let tId=null,tLoop=null,activeT=null;
-
-/* ── Helpers ── */
-const $=id=>document.getElementById(id);
-const save=()=>localStorage.setItem(K,JSON.stringify(tasks));
-const uid=()=>Date.now()+Math.floor(Math.random()*9000);
-const esc=s=>{const d=document.createElement('div');d.textContent=s;return d.innerHTML};
-const pad=n=>String(n).padStart(2,'0');
-const fmt=t=>{const h=Math.floor(t/3600);const m=Math.floor((t%3600)/60);const s=t%60;return h?`${h}:${pad(m)}:${pad(s)}`:`${m}:${pad(s)}`};
-const today=()=>new Date().toISOString().split('T')[0];
-
-/* ── Data ── */
-let tasks=JSON.parse(localStorage.getItem(K)||'[]');
-
-/* ── Navigation ── */
-function goTab(tab){
-  document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('on',t.dataset.tab===tab));
-  document.querySelectorAll('.body').forEach(b=>b.classList.remove('on'));
-  $('view-'+tab).classList.add('on');
-  if(tab==='stats') renderStats();
+let tasks = JSON.parse(localStorage.getItem('tasks')||'[]');
+let currentMode = 'All';
+function setMode(mode) { currentMode = mode; document.querySelectorAll('.mode').forEach(m => m.classList.toggle('active', m.textContent === mode)); render(); }
+function render() {
+    document.getElementById('taskList').innerHTML = tasks.map(t => `<div class="task"><b>${t.title}</b><p>${t.desc||''}</p></div>`).join('');
 }
-
-/* ── Render ── */
-function render(){
-  const el=$('view-tasks');
-  const act=tasks.filter(t=>t.status!=='completed');
-  const done=tasks.filter(t=>t.status==='completed');
-  /* Sort: frog first (highest priority, incomplete), then others by createdAt desc */
-  act.sort((a,b)=>{
-    if(a.id===frogId) return -1;
-    if(b.id===frogId) return 1;
-    const po={high:0,med:1,low:2};
-    return (po[a.priority]||1)-(po[b.priority]||1)||b.createdAt-a.createdAt;
-  });
-  const vis=(act.length?[...act]:[...done]).sort((a,b)=>b.id-a.id);
-
-  if(!vis.length){
-    el.innerHTML=`<div class="empty"><div class="em">🎯</div><h3>All clear</h3><p>Add a task or use Quick Capture.</p></div>`;
-    return;
-  }
-
-  el.innerHTML=vis.map(t=>{
-    const run=activeT===t.id;
-    const tot=(t.est||25)*60;
-    const elps=t.elapsed||0;
-    const pct=t.est?Math.min(100,Math.round(elps/tot*100)):0;
-    const rem=Math.max(0,tot-elps);
-    const isFrog=t.id===frogId;
-
-    return `<div class="card task-card">
-      ${isFrog?'<div style="margin-bottom:6px"><span class="tag tag-time">🐸 Eat That Frog — Today\'s #1</span></div>':''}
-      ${run?`<div class="timer-live"><div class="pulse"></div><span class="tLive">${fmt(rem)}</span></div>`:''}
-      <div class="tHead"><div style="flex:1"><div class="tTitle ${t.status==='completed'?'done':''}">${esc(t.title)}</div>${t.desc?`<div class="tDesc">${esc(t.desc)}</div>`:''}</div>
-        <span class="tag tag-${t.priority==='high'?'high':t.priority==='med'?'med':'low'}">${t.priority}</span></div>
-      <div class="meta">
-        <span class="tag tag-time">⏱${fmt(tot)}</span>
-        ${t.where?`<span class="tag tag-inf">📍 ${esc(t.where)}</span>`:''}
-        ${t.evy?`<span class="tag tag-low">${t.evy==='high'?'🔥 High Energy':t.evy==='med'?'⚡ Medium': '☁️ Low Energy'}</span>`:''}
-        ${t.sub2?'<span class="tag tag-success" style="background:var(--sucD);color:var(--suc)">2min</span>':''}
-        ${t.status==='completed'?`<span class="tag tag-done">✓ Done ${t.completedAt?new Date(t.completedAt).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'}):''}</span>`:''}
-      </div>
-      ${t.status!=='completed'&&t.est?`<div class="task-progress"><div class="task-bar"><div class="task-bar-fill" style="width:${pct}%"></div></div><div class="task-meta-text"><span>${pct}% complete</span><span>${t.sub2?'Under 2 min ✓':''}${!t.sub2&&t.est&&(t.est<=10)?'Quick win!':''}</span></div></div>`:''}
-      <div class="actions">
-        ${t.status!=='completed'?`
-          <button class="btn ${run?'btn-s':'btn-a'}" onclick="${run?`stopTimer()`:`start(${t.id})`}" ${run?'disabled':''}>${run?'⏸ Pause':(t.elapsed?'▶ Resume':'▶ Focus')}</button>
-          ${run?`<button class="btn btn-d" onclick="stopTimer()">■ Stop</button>`:''}
-          <button class="btn btn-su" onclick="done(${t.id})">✓</button>
-          <button class="btn btn-d" onclick="del(${t.id})">✕</button>`
-        :`<button class="btn btn-s" onclick="undo(${t.id})">↩</button><button class="btn btn-d" onclick="del(${t.id})">✕`}</div>
-    </div>`;
-  }).join('');
+function openModal() { document.getElementById('overlay').classList.add('open'); }
+function closeModal() { document.getElementById('overlay').classList.remove('open'); }
+function addTask() {
+    tasks.unshift({title: document.getElementById('iTitle').value, desc: document.getElementById('iDesc').value});
+    localStorage.setItem('tasks', JSON.stringify(tasks)); render(); closeModal();
 }
-
-/* ── Timer ── */
-function start(id){
-  if(activeT) stopTimer();
-  const t=tasks.find(x=>x.id===id);if(!t||t.status==='completed')return;
-  activeT=id;
-  clearTimeout(tLoop);
-  tLoop=setInterval(()=>tick(id),1000);
-  render();
-}
-function tick(id){
-  const t=tasks.find(x=>x.id===id);if(!t){stopTimer();return}
-  t.elapsed=(t.elapsed||0)+1;
-  if(t.elapsed>=t.est*60){stopTimer();showToast(`✅ "${t.title}" timer finished!`)}
-  save();render();
-}
-function stopTimer(){clearTimeout(tLoop);tLoop=null;activeT=null;render()}
-
-/* ── Actions ── */
-function done(id){const t=tasks.find(x=>x.id===id);if(!t)return;t.status='completed';t.completedAt=Date.now();if(activeT===id)stopTimer();streakUpdate();save();render()}
-function undo(id){const t=tasks.find(x=>x.id===id);if(!t)return;t.status='todo';t.completedAt=null;save();render()}
-function del(id){tasks=tasks.filter(x=>x.id!==id);if(activeT===id)stopTimer();save();render()}
-function clearCompleted(){const n=tasks.filter(t=>t.status==='completed').length;if(!n)return;tasks=tasks.filter(t=>t.status!=='completed');save();render()}
-
-/* ── Add ── */
-function addTask(){
-  const title=$('iTitle').value.trim();if(!title)return;
-  const est=Math.min(480,Math.max(1,parseInt($('iEst').value)||25));
-  const sub2=est<=2;
-  tasks.unshift({id:uid(),title,desc:$('iDesc').value.trim(),status:'todo',priority:$('iPri').value,est,elapsed:0,createdAt:Date.now(),evy:$('iEgy').value,where:$('iWhere').value.trim(),sub2});
-  calcFrog();save();render();closeModal();$('iTitle').value='';$('iDesc').value='';$('iWhere').value='';
-}
-function quickCapture(){
-  openModal();$('iEst').value=2;$('iPri').value='low';$('iEgy').value='low';
-  $('iTitle').focus();
-}
-
-/* ── Modal ── */
-function openModal(){$('overlay').classList.add('open');$('iTitle').focus()}
-function closeModal(){$('overlay').classList.remove('open')}
-
-/* ── Toast ── */
-function showToast(msg){const el=document.createElement('div');el.style.cssText='position:fixed;bottom:80px;left:50%;transform:translateX(-50%);background:var(--bg3);color:var(--tx);padding:12px 20px;border-radius:12px;font-size:13px;font-weight:600;z-index:200;box-shadow:0 4px 16px rgba(0,0,0,.4);animation:slideUp .3s cubic-bezier(.16,1,.3,1)';el.textContent=msg;document.body.appendChild(el);setTimeout(()=>el.remove(),2500)}
-/* ── Insights / Stats ── */
-function renderStats(){
-  const el=$('view-stats');
-  const total=tasks.length,doneC=tasks.filter(t=>t.status==='completed').length,pct=total?Math.round(doneC/total*100):0;
-  const circumference=2*Math.PI*28;
-  const off=circumference-(pct/100)*circumference;
-
-  /* Parkinson's Law insight */
-  const timed=tasks.filter(t=>t.status==='completed'&&t.elapsed>0&&t.est);
-  const avgRatio=timed.length?timed.reduce((s,t)=>s+(t.elapsed/(t.est*60)),0)/timed.length:0;
-  const parkMsg=avgRatio>1.3?'Over-estimated':avgRatio>1?'Close':avgRatio>.7?'Accurate':'Under-estimated';
-  const parkColor=parkMsg==='Over-estimated'?'var(--dan)':parkMsg==='Close'?'var(--acc)':'var(--suc)';
-
-  /* Energy breakdown */
-  const energies={high:0,med:0,low:0};tasks.forEach(t=>energies[t.evy||'med']++);
-
-  /* Urgency breakdown */
-  const urgencies={high:0,med:0,low:0};tasks.forEach(t=>urgencies[t.priority]++);
-  const umax=Math.max(...Object.values(urgencies),1);
-  const ucolors={high:'var(--dan)',med:'var(--acc)',low:'var(--suc)'};
-
-  el.innerHTML=`
-    <div class="focus" style="position:relative">
-      <div class="focus-top"><span class="focus-label">Overall Progress</span>${total?`<span class="frog-badge">${doneC}/${total} done</span>`:''}</div>
-      <div style="position:relative;display:flex;gap:16px;align-items:center">
-        <div class="focus-ring" style="position:relative">
-          <svg viewBox="0 0 64 64"><circle class="rBg" cx="32" cy="32" r="28"></circle><circle class="rFill" id="ringFill" cx="32" cy="32" r="28" stroke-dasharray="175.929" stroke-dashoffset="${off||175.929}"></circle></svg>
-          <div class="pct-center"><span class="pct-num">${pct}%</span><span class="pct-sub">done</span></div>
-        </div>
-        <div class="focus-info"><div class="focus-title">${pct===100?'All caught up! 🎉':pct>=75?'Almost there':'Keep going'}</div><div class="focus-sub">${pct?`You have ${total-doneC} task${total-doneC>1?'s':''} remaining.`:'Add your first task above.'}</div></div>
-      </div>
-    </div>
-
-    <div class="stats">
-      <div class="stat"><div class="stat-val">${total}</div><div class="stat-lbl">Total</div></div>
-      <div class="stat"><div class="stat-val" style="color:var(--suc)">${doneC}</div><div class="stat-lbl">Done</div></div>
-      <div class="stat"><div class="stat-val" style="color:var(--inf)">${timed.length}</div><div class="stat-lbl">Timed</div></div>
-      <div class="stat"><div class="stat-val" style="color:${parkColor}">${parkMsg}</div><div class="stat-lbl">Accuracy</div></div>
-    </div>
-
-    <div class="section-title">Parkinson's Law</div>
-    <div class="card" style="margin-bottom:16px;padding:14px">
-      <div style="font-size:12px;color:var(--tx2);line-height:1.5;margin-bottom:8px">"${avgRatio<.01?'No timed tasks yet.':`On average your actual time was ${avgRatio.toFixed(1)}× your estimate. You tend to ${parkMsg.toLowerCase()} your estimates.`}"</div>
-      ${avgRatio>1?'<div style="font-size:11px;color:var(--dan);font-weight:600">💡 Tip: Try estimating 20% less next time.</div>':''}
-      ${avgRatio<.7&&timed.length?'<div style="font-size:11px;color:var(--suc);font-weight:600">💡 Tip: Your estimates were tight — push yourself harder!</div>':''}
-    </div>
-
-    <div class="section-title">By Priority</div>
-    <div class="bar-row"><span class="bar-label">High</span><div class="bar-bg"><div class="bar-fill" style="width:${(urgencies.high/umax)*100}%;background:var(--dan)"></div></div><span class="bar-count">${urgencies.high}</span></div>
-    <div class="bar-row"><span class="bar-label">Med</span><div class="bar-bg"><div class="bar-fill" style="width:${(urgencies.med/umax)*100}%;background:var(--acc)"></div></div><span class="bar-count">${urgencies.med}</span></div>
-    <div class="bar-row"><span class="bar-label">Low</span><div class="bar-bg"><div class="bar-fill" style="width:${(urgencies.low/umax)*100}%;background:var(--suc)"></div></div><span class="bar-count">${urgencies.low}</span></div>
-
-    <div class="section-title" style="margin-top:20px">By Energy Level</div>
-    <div class="bar-row"><span class="bar-label">🔥 High</span><div class="bar-bg"><div class="bar-fill" style="width:${(energies.high/Math.max(...Object.values(energies),1))*100}%;background:var(--dan)"></div></div><span class="bar-count">${energies.high}</span></div>
-    <div class="bar-row"><span class="bar-label">⚡ Med</span><div class="bar-bg"><div class="bar-fill" style="width:${(energies.med/Math.max(...Object.values(energies),1))*100}%;background:var(--acc)"></div></div><span class="bar-count">${energies.med}</span></div>
-    <div class="bar-row"><span class="bar-label">☁️ Low</span><div class="bar-bg"><div class="bar-fill" style="width:${(energies.low/Math.max(...Object.values(energies),1))*100}%;background:var(--inf)"></div></div><span class="bar-count">${energies.low}</span></div>
-  `;
-}
-
-/* ── Eat That Frog ── */
-let frogId=null;
-function calcFrog(){
-  const pending=tasks.filter(t=>t.status!=='completed');
-  if(!pending.length){frogId=null;return}
-  pending.sort((a,b)=>{const p={high:0,med:1,low:2};return(p[a.priority]||1)-(p[b.priority]||1)||a.createdAt-b.createdAt});
-  frogId=pending[0].id;
-}
-calcFrog();
-
-/* ── Streak ── */
-function streakUpdate(){
-  const last=localStorage.getItem('last');const st=parseInt(localStorage.getItem('st')||'0');const td=today();
-  if(last!==td){
-    const yd=new Date(Date.now()-864e5).toISOString().split('T')[0];
-    localStorage.setItem('st',(last===yd?st+1:1));localStorage.setItem('last',td);
-  }
-}
-streakUpdate();
-
-/* ── Init ── */
+function reset() { localStorage.setItem('tasks', '[]'); tasks=[]; render(); }
 render();
 </script>
 </body>

@@ -1,6 +1,7 @@
 #!/bin/bash
 set -e
 cd "$(dirname "$0")"
+rm -f unsigned.apk aligned.apk TaskMaster.apk
 
 mkdir -p gen/com/taskmaster/app obj dex
 
@@ -19,7 +20,7 @@ javac --release 11 -cp /tmp/platforms/android-11/android.jar:gen -d obj \
   app/src/main/java/com/taskmaster/app/MainActivity.java
 
 # Convert to DEX
-/tmp/build-tools-33.0.2/android-13/d8 --min-api 21 --output dex obj/**/*.class
+/tmp/build-tools-33.0.2/android-13/d8 --min-api 21 --output dex $(find obj -name "*.class")
 
 # Package APK
 aapt package -f \

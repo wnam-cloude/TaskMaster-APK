@@ -1,7 +1,6 @@
 gen/
 obj/
 dex/
-*.apk
 *.jks
 *.zip
 apk_contents/
