@@ -6,25 +6,23 @@
 <title>TaskMaster</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-
-:root { --bg:#ffffff; --bg-card:#f5f5f7; --text:#1d1d1f; --text-sec:#86868b; --acc:#0071e3; --bd:#d2d2d7; }
+:root { --bg:#ffffff; --bg-card:#f5f5f7; --text:#1d1d1f; --acc:#0071e3; --bd:#d2d2d7; }
 body { font-family: 'Inter', system-ui, sans-serif; background: var(--bg); color: var(--text); padding: 20px; }
 .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
 .title { font-size: 28px; font-weight: 700; }
-.modes { display: flex; gap: 8px; margin-bottom: 20px; overflow-x: auto; padding-bottom: 5px; }
-.mode { padding: 6px 12px; border-radius: 16px; background: var(--bg-card); cursor: pointer; font-size: 13px; border: 1px solid var(--bd); }
+.modes { display: flex; gap: 8px; margin-bottom: 20px; overflow-x: auto; }
+.mode { padding: 8px 16px; border-radius: 20px; background: var(--bg-card); cursor: pointer; font-size: 14px; border: 1px solid var(--bd); }
 .mode.active { background: var(--acc); color: white; }
 .task { background: var(--bg-card); padding: 16px; border-radius: 12px; margin-bottom: 12px; }
-.fab { position: fixed; bottom: 30px; right: 30px; width: 56px; height: 56px; border-radius: 50%; background: var(--acc); color: white; display: grid; place-items: center; font-size: 24px; border: none; }
-.modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.3); display: none; align-items: flex-end; }
-.modal-overlay.open { display: flex; }
-.modal { width: 100%; background: white; border-radius: 20px 20px 0 0; padding: 24px; }
+.fab { position: fixed; bottom: 30px; right: 30px; width: 60px; height: 60px; border-radius: 50%; background: var(--acc); color: white; display: grid; place-items: center; font-size: 30px; border: none; }
+.modal { position: fixed; inset: 0; background: white; padding: 24px; display: none; }
+.modal.open { display: block; }
 </style>
 </head>
 <body>
 <div class="header">
     <div class="title">Tasks</div>
-    <div onclick="reset()">Reset</div>
+    <div onclick="reset()">🗑</div>
 </div>
 <div class="modes">
     <div class="mode active" onclick="setMode('All')">All</div>
@@ -34,27 +32,29 @@ body { font-family: 'Inter', system-ui, sans-serif; background: var(--bg); color
 </div>
 <div id="taskList"></div>
 <button class="fab" onclick="openModal()">+</button>
-<div class="modal-overlay" id="overlay" onclick="if(event.target===this)closeModal()">
-    <div class="modal">
-        <input style="width:100%;border:none;font-size:18px;margin-bottom:10px" id="iTitle" placeholder="Task title...">
-        <textarea style="width:100%;border:none;margin-bottom:10px" id="iDesc" placeholder="Notes..."></textarea>
-        <button style="width:100%;padding:12px;background:var(--acc);color:white;border:none;border-radius:10px" onclick="addTask()">Add Task</button>
-    </div>
+<div class="modal" id="modal">
+    <input style="width:100%;font-size:18px;margin-bottom:10px" id="iTitle" placeholder="Task title">
+    <textarea style="width:100%;height:100px;margin-bottom:10px" id="iDesc" placeholder="Notes"></textarea>
+    <button style="width:100%;padding:12px;background:var(--acc);color:white;border:none;border-radius:10px" onclick="addTask()">Save</button>
+    <button style="width:100%;padding:12px;margin-top:10px" onclick="closeModal()">Cancel</button>
 </div>
 <script>
 let tasks = JSON.parse(localStorage.getItem('tasks')||'[]');
-let currentMode = 'All';
-function setMode(mode) { currentMode = mode; document.querySelectorAll('.mode').forEach(m => m.classList.toggle('active', m.textContent === mode)); render(); }
+let mode = 'All';
+function setMode(m) { mode = m; document.querySelectorAll('.mode').forEach(el => el.classList.toggle('active', el.textContent === m)); render(); }
 function render() {
-    document.getElementById('taskList').innerHTML = tasks.map(t => `<div class="task"><b>${t.title}</b><p>${t.desc||''}</p></div>`).join('');
+    document.getElementById('taskList').innerHTML = tasks.map(t => `<div class="task">
+        <b>${t.title}</b>
+        ${mode==='Creative'?`<p style="color:var(--acc)">🎨 Creative Mode</p>`:''}
+        ${mode==='Logical'?`<p style="color:green">📊 Logical Mode</p>`:''}
+        ${mode==='Technical'?`<p style="color:purple">💻 Technical Mode</p>`:''}
+        <p>${t.desc||''}</p>
+    </div>`).join('');
 }
-function openModal() { document.getElementById('overlay').classList.add('open'); }
-function closeModal() { document.getElementById('overlay').classList.remove('open'); }
-function addTask() {
-    tasks.unshift({title: document.getElementById('iTitle').value, desc: document.getElementById('iDesc').value});
-    localStorage.setItem('tasks', JSON.stringify(tasks)); render(); closeModal();
-}
-function reset() { localStorage.setItem('tasks', '[]'); tasks=[]; render(); }
+function openModal() { document.getElementById('modal').classList.add('open'); }
+function closeModal() { document.getElementById('modal').classList.remove('open'); }
+function addTask() { tasks.unshift({title: document.getElementById('iTitle').value, desc: document.getElementById('iDesc').value}); localStorage.setItem('tasks', JSON.stringify(tasks)); render(); closeModal(); }
+function reset() { tasks=[]; localStorage.setItem('tasks', '[]'); render(); }
 render();
 </script>
 </body>
