@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
 <title>TaskMaster</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
@@ -30,6 +30,12 @@
   --logical: #10b981;
   --technical: #8b5cf6;
   --repetitive: #ef4444;
+  
+  /* Responsive spacing variables */
+  --header-padding: 16px;
+  --main-padding: 16px;
+  --fab-size: 56px;
+  --modal-max-width: calc(100vw - 32px);
 }
 
 * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
@@ -43,6 +49,7 @@ body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  overflow-x: hidden;
 }
 
 /* Header - Apple style */
@@ -50,17 +57,18 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px 24px;
+  padding: 12px var(--header-padding);
   border-bottom: 1px solid var(--border);
-  background: rgba(255,255,255,0.9);
+  background: rgba(255,255,255,0.95);
   backdrop-filter: saturate(180%) blur(20px);
   position: sticky;
   top: 0;
   z-index: 100;
+  width: 100%;
 }
 
 .title {
-  font-size: 34px;
+  font-size: 24px;
   font-weight: 700;
   letter-spacing: -0.5px;
   background: linear-gradient(135deg, var(--text-primary) 0%, var(--accent) 100%);
@@ -77,6 +85,9 @@ body {
   background: var(--bg);
   border-radius: var(--radius-lg);
   border: 1px solid var(--border);
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
 }
 
 .type-btn {
@@ -92,10 +103,11 @@ body {
   cursor: pointer;
   transition: var(--transition);
   font-family: inherit;
-  font-size: 11px;
+  font-size: 10px;
   font-weight: 500;
   color: var(--text-tertiary);
   min-width: 0;
+  width: 100%;
 }
 
 .type-btn:hover, .type-btn:active { background: var(--bg-elevated); }
@@ -121,18 +133,26 @@ body {
 .type-btn.active[data-type="All"] { background: linear-gradient(135deg, rgba(0,113,227,0.15), rgba(0,113,227,0.05)); }
 
 /* Main Content */
-.main { flex: 1; padding: 20px 24px 100px; overflow-y: auto; }
+.main {
+  flex: 1;
+  padding: var(--main-padding);
+  overflow-y: auto;
+  width: 100%;
+  max-width: 100%;
+}
 
 /* Productivity Rules Banner */
 .rules-banner {
   display: none;
-  padding: 16px 20px;
+  padding: 12px 16px;
   border-radius: var(--radius-md);
-  margin-bottom: 20px;
+  margin-bottom: 16px;
   border-left: 4px solid;
-  font-size: 14px;
+  font-size: 13px;
   line-height: 1.5;
   animation: slideDown var(--transition);
+  box-sizing: border-box;
+  width: 100%;
 }
 
 @keyframes slideDown { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: translateY(0); } }
@@ -143,25 +163,27 @@ body {
 .rules-banner.repetitive { background: rgba(239,68,68,0.1); border-color: var(--repetitive); }
 
 .rules-banner .rule-title { font-weight: 600; margin-bottom: 4px; }
-.rules-banner .rule-desc { color: var(--text-secondary); font-size: 13px; }
+.rules-banner .rule-desc { color: var(--text-secondary); font-size: 12px; }
 
 /* Sections - Single page with sub-sections */
-.section { margin-bottom: 32px; }
-.section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
-.section-title { font-size: 22px; font-weight: 700; letter-spacing: -0.3px; }
-.section-count { font-size: 13px; color: var(--text-secondary); font-weight: 500; }
+.section { margin-bottom: 24px; width: 100%; }
+.section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+.section-title { font-size: 20px; font-weight: 700; letter-spacing: -0.3px; }
+.section-count { font-size: 12px; color: var(--text-secondary); font-weight: 500; }
 
 /* Task Cards - Elevated design */
 .task-card {
   background: var(--bg-elevated);
   border-radius: var(--radius-lg);
-  padding: 20px;
-  margin-bottom: 12px;
+  padding: 16px;
+  margin-bottom: 10px;
   box-shadow: var(--shadow-sm);
   border: 1px solid var(--border);
   transition: var(--transition);
   position: relative;
   overflow: hidden;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .task-card:hover { box-shadow: var(--shadow-md); transform: translateY(-1px); }
@@ -178,12 +200,12 @@ body {
 .task-card.technical::before { background: var(--technical); }
 .task-card.repetitive::before { background: var(--repetitive); }
 
-.task-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 8px; }
-.task-title { font-size: 17px; font-weight: 600; letter-spacing: -0.2px; flex: 1; }
+.task-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; margin-bottom: 6px; }
+.task-title { font-size: 16px; font-weight: 600; letter-spacing: -0.2px; flex: 1; }
 .task-type-badge {
-  font-size: 10px;
+  font-size: 9px;
   font-weight: 600;
-  padding: 4px 10px;
+  padding: 3px 8px;
   border-radius: 100px;
   text-transform: uppercase;
   letter-spacing: 0.5px;
@@ -194,47 +216,49 @@ body {
 .task-type-badge.technical { background: rgba(139,92,246,0.15); color: var(--technical); }
 .task-type-badge.repetitive { background: rgba(239,68,68,0.15); color: var(--repetitive); }
 
-.task-desc { font-size: 15px; color: var(--text-secondary); line-height: 1.5; margin-bottom: 12px; }
-.task-meta { display: flex; gap: 16px; font-size: 12px; color: var(--text-tertiary); }
-.task-meta span { display: flex; align-items: center; gap: 4px; }
+.task-desc { font-size: 14px; color: var(--text-secondary); line-height: 1.5; margin-bottom: 10px; }
+.task-meta { display: flex; gap: 12px; font-size: 11px; color: var(--text-tertiary); }
+.task-meta span { display: flex; align-items: center; gap: 3px; }
 
 /* Productivity Indicators */
-.productivity-indicators { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--border); }
+.productivity-indicators { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--border); }
 .productivity-tag {
-  font-size: 11px;
+  font-size: 10px;
   font-weight: 500;
-  padding: 4px 10px;
+  padding: 3px 8px;
   border-radius: 6px;
   background: var(--bg);
   border: 1px solid var(--border);
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: 3px;
 }
 
 /* Empty State */
 .empty-state {
   text-align: center;
-  padding: 60px 20px;
+  padding: 40px 16px;
   color: var(--text-tertiary);
+  width: 100%;
+  box-sizing: border-box;
 }
-.empty-state .icon { font-size: 48px; margin-bottom: 16px; opacity: 0.5; }
-.empty-state h3 { font-size: 17px; font-weight: 600; color: var(--text-secondary); margin: 0 0 8px; }
-.empty-state p { font-size: 14px; margin: 0; max-width: 280px; margin: 0 auto; }
+.empty-state .icon { font-size: 40px; margin-bottom: 12px; opacity: 0.5; }
+.empty-state h3 { font-size: 16px; font-weight: 600; color: var(--text-secondary); margin: 0 0 6px; }
+.empty-state p { font-size: 13px; margin: 0; max-width: 280px; margin: 0 auto; }
 
 /* FAB - Apple style */
 .fab {
   position: fixed;
-  bottom: 30px;
-  right: 24px;
-  width: 56px;
-  height: 56px;
-  border-radius: 28px;
+  bottom: 20px;
+  right: 16px;
+  width: var(--fab-size);
+  height: var(--fab-size);
+  border-radius: 50%;
   background: var(--accent);
   color: white;
   display: grid;
   place-items: center;
-  font-size: 28px;
+  font-size: 24px;
   border: none;
   box-shadow: var(--shadow-lg);
   cursor: pointer;
@@ -244,7 +268,7 @@ body {
 .fab:hover, .fab:active { transform: scale(1.05); box-shadow: 0 12px 20px rgba(0,113,227,0.3); }
 .fab:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
 
-/* Modal - Sheet style */
+/* Modal Sheet - Responsive */
 .modal-overlay {
   position: fixed;
   inset: 0;
@@ -261,13 +285,15 @@ body {
 
 .modal-sheet {
   width: 100%;
-  max-width: 480px;
+  max-width: var(--modal-max-width);
   background: var(--bg-elevated);
   border-radius: var(--radius-lg) var(--radius-lg) 0 0;
-  padding: 24px;
+  padding: 20px;
   margin: 0 auto;
   box-shadow: var(--shadow-lg);
   animation: slideUp 300ms cubic-bezier(0.4, 0, 0.2, 1);
+  max-height: 90vh;
+  overflow-y: auto;
 }
 
 @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
@@ -275,12 +301,13 @@ body {
 .modal-handle {
   width: 40px; height: 5px; background: var(--text-tertiary); border-radius: 3px; margin: 0 auto 20px;
 }
+
 .modal-title { font-size: 20px; font-weight: 600; margin-bottom: 20px; }
-.form-group { margin-bottom: 20px; }
-.form-label { display: block; font-size: 13px; font-weight: 500; color: var(--text-secondary); margin-bottom: 8px; }
+.form-group { margin-bottom: 16px; }
+.form-label { display: block; font-size: 13px; font-weight: 500; color: var(--text-secondary); margin-bottom: 6px; }
 .form-input, .form-select, .form-textarea {
   width: 100%;
-  padding: 14px 16px;
+  padding: 12px 14px;
   border-radius: var(--radius-md);
   border: 1px solid var(--border);
   background: var(--bg);
@@ -288,37 +315,40 @@ body {
   font-size: 16px;
   color: var(--text-primary);
   transition: var(--transition);
+  box-sizing: border-box;
 }
 .form-input:focus, .form-select:focus, .form-textarea:focus {
   outline: none;
   border-color: var(--accent);
   box-shadow: 0 0 0 3px rgba(0,113,227,0.15);
 }
-.form-textarea { min-height: 100px; resize: vertical; }
+.form-textarea { min-height: 80px; resize: vertical; }
 
-.modal-actions { display: flex; gap: 12px; margin-top: 24px; }
-.btn { flex: 1; padding: 16px; border-radius: var(--radius-md); font-size: 16px; font-weight: 600; border: none; cursor: pointer; transition: var(--transition); }
+.modal-actions { display: flex; gap: 10px; margin-top: 20px; }
+.btn { flex: 1; padding: 14px; border-radius: var(--radius-md); font-size: 16px; font-weight: 600; border: none; cursor: pointer; transition: var(--transition); }
 .btn-primary { background: var(--accent); color: white; }
 .btn-primary:hover { background: var(--accent-hover); }
 .btn-secondary { background: var(--bg); color: var(--text-primary); border: 1px solid var(--border); }
 .btn-secondary:hover { background: var(--bg-elevated); }
 
-/* Stats Bar */
+/* Stats Bar - Fixed bottom, responsive */
 .stats-bar {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 12px;
-  padding: 16px 24px;
-  background: rgba(255,255,255,0.9);
+  gap: 8px;
+  padding: 12px 16px;
+  background: rgba(255,255,255,0.95);
   backdrop-filter: saturate(180%) blur(20px);
   border-top: 1px solid var(--border);
   position: fixed;
   bottom: 0; left: 0; right: 0;
   z-index: 99;
+  width: 100%;
+  box-sizing: border-box;
 }
 .stat-item { text-align: center; }
-.stat-value { font-size: 24px; font-weight: 700; letter-spacing: -0.5px; }
-.stat-label { font-size: 10px; color: var(--text-tertiary); text-transform: uppercase; letter-spacing: 0.5px; }
+.stat-value { font-size: 20px; font-weight: 700; letter-spacing: -0.5px; }
+.stat-label { font-size: 9px; color: var(--text-tertiary); text-transform: uppercase; letter-spacing: 0.5px; }
 
 /* Animations */
 @keyframes fadeInUp { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
@@ -342,34 +372,84 @@ body {
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
 }
-</style>
+
+/* Mobile responsive breakpoints */
+@media (max-width: 380px) {
+  .type-btn { font-size: 9px; padding: 10px 6px; }
+  .type-btn .icon { font-size: 16px; }
+  .main { padding: 12px; }
+  .header { padding: 8px 12px; }
+  .title { font-size: 20px; }
+  .fab { width: 48px; height: 48px; font-size: 20px; bottom: 16px; right: 12px; }
+  .stats-bar { padding: 10px 12px; }
+  .stat-value { font-size: 18px; }
+}
+
+/* Landscape orientation */
+@media (max-height: 500px) and (orientation: landscape) {
+  .header { padding: 8px 16px; }
+  .title { font-size: 22px; }
+  .main { padding: 12px 16px; }
+  .fab { width: 48px; height: 48px; font-size: 20px; }
+}
+
+/* Tablet and larger screens */
+@media (min-width: 768px) {
+  .main {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 24px;
+  }
+  .type-selector {
+    max-width: 500px;
+  }
+  .modal-sheet {
+    max-width: 500px;
+    border-radius: var(--radius-lg);
+  }
+  .stats-bar {
+    max-width: 600px;
+    margin: 0 auto;
+    border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+    border: 1px solid var(--border);
+    border-bottom: none;
+  }
+}
+
+/* Adjust main content padding for stats bar on larger screens */
+@media (min-width: 768px) {
+  .main {
+    padding-bottom: 80px;
+  }
+}</style>
 </head>
 <body>
 <header class="header">
   <h1 class="title">TaskMaster</h1>
-  <div class="type-selector" id="typeSelector">
-    <button class="type-btn active" data-type="All" onclick="setType('All')">
-      <span class="icon">⬢</span>
-      <span class="label">All</span>
-    </button>
-    <button class="type-btn" data-type="Creative" onclick="setType('Creative')">
-      <span class="icon">🎨</span>
-      <span class="label">Creative</span>
-    </button>
-    <button class="type-btn" data-type="Logical" onclick="setType('Logical')">
-      <span class="icon">📊</span>
-      <span class="label">Logical</span>
-    </button>
-    <button class="type-btn" data-type="Technical" onclick="setType('Technical')">
-      <span class="icon">💻</span>
-      <span class="label">Tech</span>
-    </button>
-    <button class="type-btn" data-type="Repetitive" onclick="setType('Repetitive')">
-      <span class="icon">🔄</span>
-      <span class="label">Repeat</span>
-    </button>
-  </div>
 </header>
+
+<div class="type-selector" id="typeSelector">
+  <button class="type-btn active" data-type="All" onclick="setType('All')">
+    <span class="icon">⬢</span>
+    <span class="label">All</span>
+  </button>
+  <button class="type-btn" data-type="Creative" onclick="setType('Creative')">
+    <span class="icon">🎨</span>
+    <span class="label">Creative</span>
+  </button>
+  <button class="type-btn" data-type="Logical" onclick="setType('Logical')">
+    <span class="icon">📊</span>
+    <span class="label">Logical</span>
+  </button>
+  <button class="type-btn" data-type="Technical" onclick="setType('Technical')">
+    <span class="icon">💻</span>
+    <span class="label">Tech</span>
+  </button>
+  <button class="type-btn" data-type="Repetitive" onclick="setType('Repetitive')">
+    <span class="icon">🔄</span>
+    <span class="label">Repeat</span>
+  </button>
+</div>
 
 <main class="main">
   <!-- Productivity Rules Banner -->
@@ -449,7 +529,7 @@ const PRODUCTIVITY_RULES = {
       'Capture ideas immediately in inbox',
       'Schedule "incubation" breaks for insights'
     ],
-    tip: 'Creative work thrives on divergent thinking. Protect maker's schedule.'
+    tip: 'Creative work thrives on divergent thinking. Protect maker\'s schedule.'
   },
   Logical: {
     color: '#10b981',
@@ -501,10 +581,9 @@ function calculateProductivityScore() {
   tasks.forEach(t => {
     if (t.completed) score += 10;
     else {
-      // Bonus for using correct productivity rules
       const rules = PRODUCTIVITY_RULES[t.type]?.rules || [];
       if (t.notes && rules.some(r => t.notes.toLowerCase().includes(r.toLowerCase().slice(0,10)))) score += 5;
-      score += 2; // Base for having a task
+      score += 2;
     }
   });
   return Math.min(100, Math.round((score / (tasks.length * 15)) * 100));
@@ -516,14 +595,10 @@ function render() {
   const active = filtered.filter(t => !t.completed);
   const completed = filtered.filter(t => t.completed);
 
-  // Update rules banner
   updateRulesBanner();
-
-  // Render active tasks
   renderTaskList('activeTasks', active, false);
   document.getElementById('activeCount').textContent = `${active.length} task${active.length !== 1 ? 's' : ''}`;
 
-  // Render completed tasks
   const completedSection = document.getElementById('completedSection');
   if (completed.length > 0) {
     completedSection.style.display = 'block';
@@ -533,7 +608,6 @@ function render() {
     completedSection.style.display = 'none';
   }
 
-  // Update stats
   updateStats();
 }
 
@@ -568,14 +642,14 @@ function renderTaskList(containerId, taskList, isCompleted) {
       <div class="productivity-indicators">
         ${getProductivityTags(t).map(tag => `<span class="productivity-tag">${tag}</span>`).join('')}
       </div>
-      <div style="display:flex;gap:8px;margin-top:12px">
+      <div style="display:flex;gap:8px;margin-top:10px">
         ${!isCompleted ? `
-          <button class="btn btn-primary" style="flex:1;padding:10px;font-size:14px" onclick="completeTask('${t.id}')">Complete</button>
-          <button class="btn btn-secondary" style="flex:1;padding:10px;font-size:14px" onclick="editTask('${t.id}')">Edit</button>
+          <button class="btn btn-primary" style="flex:1;padding:8px;font-size:13px" onclick="completeTask('${t.id}')">Complete</button>
+          <button class="btn btn-secondary" style="flex:1;padding:8px;font-size:13px" onclick="editTask('${t.id}')">Edit</button>
         ` : `
-          <button class="btn btn-secondary" style="flex:1;padding:10px;font-size:14px" onclick="restoreTask('${t.id}')">Restore</button>
+          <button class="btn btn-secondary" style="flex:1;padding:8px;font-size:13px" onclick="restoreTask('${t.id}')">Restore</button>
         `}
-        <button class="btn btn-secondary" style="padding:10px 16px;font-size:14px" onclick="deleteTask('${t.id}')">Delete</button>
+        <button class="btn btn-secondary" style="padding:8px 12px;font-size:13px" onclick="deleteTask('${t.id}')">Delete</button>
       </div>
     </div>
   `).join('');
@@ -691,14 +765,7 @@ function deleteTask(id) {
   }
 }
 
-function reset() {
-  if (!confirm('Delete ALL tasks?')) return;
-  tasks = [];
-  saveAndRender();
-}
-
 function estimateTime(type, desc) {
-  // Simple heuristic based on type and description length
   const base = { Creative: 45, Logical: 30, Technical: 60, Repetitive: 15 };
   const complexity = Math.min(60, (desc || '').length * 0.5);
   return Math.round(base[type] + complexity);
@@ -790,14 +857,12 @@ function handleTouchEnd(e, card) {
 // ==================== INIT ====================
 document.addEventListener('DOMContentLoaded', render);
 
-// Keyboard shortcuts
 document.addEventListener('keydown', (e) => {
   if (e.key === 'Escape') closeModal();
   if (e.key === 'n' && (e.metaKey || e.ctrlKey)) { e.preventDefault(); openModal(); }
   if (e.key === '/' && document.activeElement.tagName !== 'INPUT') { e.preventDefault(); document.getElementById('iTitle').focus(); }
 });
 
-// Prevent zoom on input focus (iOS)
 document.addEventListener('touchstart', () => {}, { passive: true });
 </script>
 </body>

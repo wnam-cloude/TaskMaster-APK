@@ -11,8 +11,8 @@ aapt package -m -J gen \
   -S app/src/main/res \
   -A app/src/main/assets \
   -I /tmp/platforms/android-11/android.jar \
-  --min-sdk-version 21 --target-sdk-version 30 \
-  --version-code 1 --version-name 1.0
+  --min-sdk-version 21 --target-sdk-version 34 \
+  --version-code 5 --version-name 5.0.0
 
 # Compile Java
 javac --release 11 -cp /tmp/platforms/android-11/android.jar:gen -d obj \
@@ -28,8 +28,8 @@ aapt package -f \
   -S app/src/main/res \
   -A app/src/main/assets \
   -I /tmp/platforms/android-11/android.jar \
-  --min-sdk-version 21 --target-sdk-version 30 \
-  --version-code 1 --version-name 1.0 \
+  --min-sdk-version 21 --target-sdk-version 34 \
+  --version-code 5 --version-name 5.0.0 \
   -F unsigned.apk
 
 # Add classes.dex at root
