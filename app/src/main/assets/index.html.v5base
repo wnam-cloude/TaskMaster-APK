@@ -421,96 +421,11 @@ body {
   .main {
     padding-bottom: 80px;
   }
-}
-/* Dark Theme - V4 Style */
-.dark-mode {
-  --bg: #09090e;--bg1:#0f0f16;--bg2:#16161f;--bg3:#1c1c28;
-  --bd:rgba(255,255,255,.05);--bd2:rgba(255,255,255,.1);
-  --tx:#eeeef0;--tx2:#8d8da0;--tx3:#5a5a6e;
-  --acc:#fbbf24;--accD:rgba(251,191,36,.12);--accG:rgba(251,191,36,.3);
-  --suc:#34d399;--sucD:rgba(52,211,153,.12);
-  --dan:#f87171;--danD:rgba(248,113,113,.12);
-  --inf:#60a5fa;--infD:rgba(96,165,250,.12);
-}
-.dark-mode body { background: var(--bg); color: var(--tx); }
-.dark-mode .header { background: rgba(15,15,22,0.95); border-bottom-color: var(--bd); }
-.dark-mode .stats-bar { background: rgba(15,15,22,0.95); border-top-color: var(--bd); }
-.dark-mode .modal-sheet { background: var(--bg1); }
-.dark-mode .form-input, .dark-mode .form-select, .dark-mode .form-textarea { 
-  background: var(--bg2); color: var(--tx); border-color: var(--bd); 
-}
-.dark-mode .task-card { background: var(--bg1); border-color: var(--bd); }
-.dark-mode .type-btn { color: var(--tx2); }
-.dark-mode .type-btn.active { background: var(--acc); color: #000; }
-
-/* Focus Card - V4 Style */
-.focus { background: linear-gradient(135deg,var(--bg-elevated),var(--bg)); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 20px; margin: 16px var(--main-padding); position: relative; overflow: hidden; }
-.focus::after { content: ''; position: absolute; top: -30px; right: -30px; width: 80px; height: 80px; border-radius: 50%; background: var(--acc); opacity: .07; filter: blur(20px); }
-.focus-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
-.focus-label { font-size: 11px; font-weight: 700; color: var(--text-tertiary); text-transform: uppercase; letter-spacing: .8px; }
-.frog-badge { display: inline-flex; align-items: center; gap: 4px; padding: 4px 10px; border-radius: 999px; background: var(--acc); color: white; font-size: 10px; font-weight: 700; }
-.focus-ring { width: 70px; height: 70px; flex-shrink: 0; position: relative; }
-.focus-ring svg { width: 70px; height: 70px; transform: rotate(-90deg); }
-.focus-ring .rBg { fill: none; stroke: var(--border); stroke-width: 6; }
-.focus-ring .rFill { fill: none; stroke: var(--acc); stroke-width: 6; stroke-linecap: round; transition: stroke-dashoffset .6s cubic-bezier(.4,0,.2,1); }
-.pct-center { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; }
-.pct-num { font-size: 18px; font-weight: 800; line-height: 1; }
-.pct-sub { font-size: 9px; color: var(--text-tertiary); font-weight: 600; text-transform: uppercase; letter-spacing: .5px; }
-.focus-info { margin-top: 16px; }
-.focus-title { font-size: 15px; font-weight: 700; margin-bottom: 3px; }
-.focus-sub { font-size: 12px; color: var(--text-secondary); line-height: 1.4; }
-
-/* Priority Bars - V4 Style */
-.bar-row { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
-.bar-label { width: 52px; font-size: 11px; font-weight: 600; color: var(--text-secondary); text-transform: capitalize; }
-.bar-bg { flex: 1; height: 5px; background: var(--border); border-radius: 3px; overflow: hidden; }
-.bar-fill { height: 100%; border-radius: 3px; transition: width .5s cubic-bezier(.4,0,.2,1); }
-.bar-count { width: 18px; text-align: right; font-size: 11px; font-weight: 700; color: var(--text-tertiary); }
-.bar-high .bar-fill { background: var(--repetitive); }
-.bar-med .bar-fill { background: var(--creative); }
-.bar-low .bar-fill { background: var(--logical); }
-
-/* Priority badges */
-.priority-badge { display: inline-flex; align-items: center; gap: 3px; padding: 2px 8px; border-radius: 6px; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .4px; }
-.priority-high { background: rgba(239,68,68,0.2); color: #ef4444; }
-.priority-med { background: rgba(245,158,11,0.2); color: #f59e0b; }
-.priority-low { background: rgba(16,185,129,0.2); color: #10b981; }
-
-/* Energy badges */
-.energy-badge { display: inline-flex; align-items: center; gap: 3px; padding: 2px 8px; border-radius: 6px; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .4px; }
-.energy-high { background: rgba(239,68,68,0.2); color: #ef4444; }
-.energy-med { background: rgba(245,158,11,0.2); color: #f59e0b; }
-.energy-low { background: rgba(16,185,129,0.2); color: #10b981; }
-
-/* Timer live display */
-.timer-live { display: flex; align-items: center; gap: 8px; padding: 8px 12px; background: rgba(0,113,227,0.1); border: 1px solid rgba(0,113,227,0.2); border-radius: 10px; margin-bottom: 8px; }
-.timer-live .pulse { width: 6px; height: 6px; border-radius: 50%; background: #0071e3; animation: pulse 1.2s ease infinite; }
-@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.2} }
-.timer-live .tLive { font-family: monospace; font-size: 14px; font-weight: 700; color: #0071e3; letter-spacing: .5px; }
-</style>
+}</style>
 </head>
 <body>
 <header class="header">
-  <h1 class="title">TaskMaster<button class="btn btn-secondary" style="padding: 8px 12px; font-size: 12px; border: none; background: var(--bg); color: var(--text-secondary); cursor: pointer; transition: all 0.2s; margin-left: 8px;" onclick="quickCapture()">⚡ Quick</button></h1>
-
-
-  <div class="focus-ring" style="position:relative">
-    <svg width="70" height="70" viewBox="0 0 70 70">
-      <path class="rBg" d="M35 5 A30 30 0 0 1 65 35 A30 30 0 0 1 35 65 A30 30 0 0 1 5 35 A30 30 0 0 1 35 5" fill="none" stroke="var(--bg)" stroke-width="6"/>
-      <path class="rFill" id="ringFill" d="M35 5 A30 30 0 0 1 65 35 A30 30 0 0 1 35 65 A30 30 0 0 1 5 35 A30 30 0 0 1 35 5" fill="none" stroke="var(--acc)" stroke-width="6" stroke-linecap="round"/>
-    </svg>
-    <div class="pct-center">
-      <div class="pct-num" id="focusPct">0%</div>
-      <div class="pct-sub">Complete</div>
-    </div>
-  </div>
-  <div class="focus-info">
-    <div class="focus-title" id="focusTitle">Add your first task</div>
-    <div class="focus-sub" id="focusSub">Tap + to get started</div>
-  </div>
-</div>
-
-<button class="btn btn-secondary" style="padding: 8px 12px; font-size: 12px; border: none; background: var(--bg); color: var(--text-secondary); cursor: pointer; transition: all 0.2s; margin-left: 8px;" onclick="toggleDarkTheme()">🌙 Dark</button>
+  <h1 class="title">TaskMaster</h1>
 </header>
 
 <div class="type-selector" id="typeSelector">
@@ -536,28 +451,6 @@ body {
   </button>
 </div>
 
-
-<!-- V4: Focus Card - Overall Progress -->
-<div class="focus" style="position:relative">
-  <div class="focus-top">
-    <span class="focus-label">Overall Progress</span>
-    <span class="frog-badge" id="focusBadge">0/0 tasks</span>
-  </div>
-  <div class="focus-ring" style="position:relative">
-    <svg width="70" height="70" viewBox="0 0 70 70">
-      <path class="rBg" d="M35 5 A30 30 0 0 1 65 35 A30 30 0 0 1 35 65 A30 30 0 0 1 5 35 A30 30 0 0 1 35 5" fill="none" stroke="var(--bg)" stroke-width="6"/>
-      <path class="rFill" id="ringFill" d="M35 5 A30 30 0 0 1 65 35 A30 30 0 0 1 35 65 A30 30 0 0 1 5 35 A30 30 0 0 1 35 5" fill="none" stroke="var(--acc)" stroke-width="6" stroke-linecap="round"/>
-    </svg>
-    <div class="pct-center">
-      <div class="pct-num" id="focusPct">0%</div>
-      <div class="pct-sub">Complete</div>
-    </div>
-  </div>
-  <div class="focus-info">
-    <div class="focus-title" id="focusTitle">Add your first task</div>
-    <div class="focus-sub" id="focusSub">Tap + to get started</div>
-  </div>
-</div>
 <main class="main">
   <!-- Productivity Rules Banner -->
   <div class="rules-banner" id="rulesBanner"></div>
@@ -582,71 +475,6 @@ body {
 </main>
 
 <!-- Stats Bar -->
-
-<!-- V4: Priority Bars -->
-<div class="priority-section" style="margin-bottom: 24px;">
-  <div class="section-title">Priority Distribution</div>
-  <div class="bar-row bar-high">
-    <div class="bar-label">High</div>
-    <div class="bar-bg"><div class="bar-fill" style="width: 0%"></div></div>
-    <div class="bar-count">0</div>
-  </div>
-  <div class="bar-row bar-med">
-    <div class="bar-label">Medium</div>
-    <div class="bar-bg"><div class="bar-fill" style="width: 0%"></div></div>
-    <div class="bar-count">0</div>
-  </div>
-  <div class="bar-row bar-low">
-    <div class="bar-label">Low</div>
-    <div class="bar-bg"><div class="bar-fill" style="width: 0%"></div></div>
-    <div class="bar-count">0</div>
-  </div>
-</div>
-
-<!-- V4: Parkinson's Law Insight -->
-<div class="parkinson-section" style="margin-bottom: 24px;">
-  <div class="section-title">Parkinson's Law</div>
-  <div class="card" style="padding: 16px; background: var(--bg-elevated); border-radius: var(--radius-lg); border: 1px solid var(--border);">
-    <div style="font-size: 13px; color: var(--text-secondary); line-height: 1.5;">
-      <span id="parkinsonMsg">No timed tasks yet</span>
-      <span id="parkinsonDetail" style="display:block; margin-top: 8px; font-size: 12px; color: var(--text-tertiary);"></span>
-    </div>
-  </div>
-</div>
-
-<!-- V4: Energy Breakdown -->
-<div class="energy-section" style="margin-bottom: 24px;">
-  <div class="section-title">Energy Breakdown</div>
-  <div class="stats" style="display: flex; gap: 8px; overflow-x: auto;">
-    <div class="stat" style="min-width: 80px; padding: 12px; background: var(--bg-elevated); border-radius: var(--radius-md); border: 1px solid var(--border); text-align: center;">
-      <div class="stat-val" id="statEnergyHigh" style="font-size: 18px; font-weight: 800; color: var(--repetitive);">0</div>
-      <div class="stat-lbl" style="font-size: 10px; color: var(--text-tertiary); text-transform: uppercase;">High</div>
-    </div>
-    <div class="stat" style="min-width: 80px; padding: 12px; background: var(--bg-elevated); border-radius: var(--radius-md); border: 1px solid var(--border); text-align: center;">
-      <div class="stat-val" id="statEnergyMed" style="font-size: 18px; font-weight: 800; color: var(--creative);">0</div>
-      <div class="stat-lbl" style="font-size: 10px; color: var(--text-tertiary); text-transform: uppercase;">Medium</div>
-    </div>
-    <div class="stat" style="min-width: 80px; padding: 12px; background: var(--bg-elevated); border-radius: var(--radius-md); border: 1px solid var(--border); text-align: center;">
-      <div class="stat-val" id="statEnergyLow" style="font-size: 18px; font-weight: 800; color: var(--logical);">0</div>
-      <div class="stat-lbl" style="font-size: 10px; color: var(--text-tertiary); text-transform: uppercase;">Low</div>
-    </div>
-  </div>
-</div>
-
-<!-- V4: Timed Tasks Stats -->
-<div class="timed-section" style="margin-bottom: 24px;">
-  <div class="section-title">Timed Tasks</div>
-  <div class="stats" style="display: flex; gap: 8px; overflow-x: auto;">
-    <div class="stat" style="min-width: 80px; padding: 12px; background: var(--bg-elevated); border-radius: var(--radius-md); border: 1px solid var(--border); text-align: center;">
-      <div class="stat-val" id="statTimed" style="font-size: 18px; font-weight: 800; color: var(--accent);">0</div>
-      <div class="stat-lbl" style="font-size: 10px; color: var(--text-tertiary); text-transform: uppercase;">Timed</div>
-    </div>
-    <div class="stat" style="min-width: 80px; padding: 12px; background: var(--bg-elevated); border-radius: var(--radius-md); border: 1px solid var(--border); text-align: center;">
-      <div class="stat-val" id="statAvgRatio" style="font-size: 18px; font-weight: 800; color: var(--text-primary);">0x</div>
-      <div class="stat-lbl" style="font-size: 10px; color: var(--text-tertiary); text-transform: uppercase;">Avg Ratio</div>
-    </div>
-  </div>
-</div>
 <div class="stats-bar">
   <div class="stat-item"><div class="stat-value" id="statTotal">0</div><div class="stat-label">Total</div></div>
   <div class="stat-item"><div class="stat-value" id="statActive">0</div><div class="stat-label">Active</div></div>
@@ -676,35 +504,9 @@ body {
           <option value="Repetitive">🔄 Repetitive — Routine, automation candidates</option>
         </select>
       </div>
-      
-      <div class="form-group">
-        <label class="form-label">Priority</label>
-        <select class="form-select" id="iPri">
-          <option value="high">🔥 High — needs focus</option>
-          <option value="med" selected>⚡ Medium — steady pace</option>
-          <option value="low">☁️ Low — easy / routine</option>
-        </select>
-      </div>
-<div class="form-group">
-        <label class="form-label">Energy Level</label>
-        <select class="form-select" id="iEgy">
-          <option value="high">🔥 High — needs focus</option>
-          <option value="med" selected>⚡ Medium — steady pace</option>
-          <option value="low">☁️ Low — easy / routine</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label class="form-label">Notes</label>
-      </div>
       <div class="form-group">
         <label class="form-label">Notes</label>
         <textarea class="form-textarea" id="iDesc" placeholder="Details, links, context..."></textarea>
-      </div>
-      <div class="form-group">
-        <label class="form-label">Est. Time (mins)</label>
-        <input class="form-input" id="iEst" type="number" value="25" min="1" max="480">
-      </div>
-
       </div>
       <div class="modal-actions">
         <button type="button" class="btn btn-secondary" onclick="closeModal()">Cancel</button>
@@ -832,20 +634,10 @@ function renderTaskList(containerId, taskList, isCompleted) {
         <span class="task-type-badge ${t.type.toLowerCase()}">${PRODUCTIVITY_RULES[t.type]?.icon || '⬢'} ${t.type}</span>
       </div>
       ${t.desc ? `<p class="task-desc">${escapeHtml(t.desc)}</p>` : ''}
-
-      ${t.elapsed > 0 && !isCompleted ? `
-        <div class="timer-live">
-          <span class="pulse"></span>
-          <span class="tLive">${formatTime(t.elapsed)}</span>
-        </div>
-      ` : ''}
       <div class="task-meta">
         <span>📅 ${formatDate(t.createdAt)}</span>
         ${t.completedAt ? `<span>✓ ${formatDate(t.completedAt)}</span>` : ''}
-        ${t.estTime ? `<span>⏱ Est: ${t.estTime}min</span>` : ''}
-        ${t.elapsed > 0 ? `<span>▶ ${formatTime(t.elapsed)}</span>` : ''}
-        ${t.priority ? `<span class="priority-badge priority-${t.priority}">${t.priority}</span>` : ''}
-        ${t.energy ? `<span class="energy-badge energy-${t.energy}">${t.energy}</span>` : ''}
+        ${t.estimatedTime ? `<span>⏱ ${t.estimatedTime}min</span>` : ''}
       </div>
       <div class="productivity-indicators">
         ${getProductivityTags(t).map(tag => `<span class="productivity-tag">${tag}</span>`).join('')}
@@ -921,19 +713,11 @@ function addTask(event) {
       title, type, desc,
       completed: false,
       createdAt: Date.now(),
-      estimatedTime: estimateTime(type, desc),
-      priority: document.getElementById('iPri').value || 'med',
-      energy: document.getElementById('iEgy').value || 'med',
-      estTime: parseInt(document.getElementById('iEst').value) || 25,
-      elapsed: 0
+      estimatedTime: estimateTime(type, desc)
     });
   }
 
-  updateFocusCard();
-    updatePriorityBars();
-    updateV4Stats();
-    streakUpdate();
-    saveAndRender();
+  saveAndRender();
   closeModal();
 }
 
@@ -942,10 +726,6 @@ function completeTask(id) {
   if (idx !== -1) {
     tasks[idx].completed = true;
     tasks[idx].completedAt = Date.now();
-    updateFocusCard();
-    updatePriorityBars();
-    updateV4Stats();
-    streakUpdate();
     saveAndRender();
   }
 }
@@ -955,10 +735,6 @@ function restoreTask(id) {
   if (idx !== -1) {
     tasks[idx].completed = false;
     delete tasks[idx].completedAt;
-    updateFocusCard();
-    updatePriorityBars();
-    updateV4Stats();
-    streakUpdate();
     saveAndRender();
   }
 }
@@ -970,9 +746,6 @@ function editTask(id) {
   document.getElementById('iTitle').value = task.title;
   document.getElementById('iType').value = task.type;
   document.getElementById('iDesc').value = task.desc || '';
-  document.getElementById('iPri').value = task.priority || 'med';
-  document.getElementById('iEgy').value = task.energy || 'med';
-  document.getElementById('iEst').value = task.estTime || 25;
   document.querySelector('.modal-title').textContent = 'Edit Task';
   openModal();
 }
@@ -984,18 +757,10 @@ function deleteTask(id) {
     card.classList.add('deleting');
     setTimeout(() => {
       tasks = tasks.filter(t => t.id !== id);
-      updateFocusCard();
-    updatePriorityBars();
-    updateV4Stats();
-    streakUpdate();
-    saveAndRender();
+      saveAndRender();
     }, 200);
   } else {
     tasks = tasks.filter(t => t.id !== id);
-    updateFocusCard();
-    updatePriorityBars();
-    updateV4Stats();
-    streakUpdate();
     saveAndRender();
   }
 }
@@ -1081,11 +846,7 @@ function handleTouchEnd(e, card) {
     setTimeout(() => {
       const id = card.dataset.id;
       tasks = tasks.filter(t => t.id !== id);
-      updateFocusCard();
-    updatePriorityBars();
-    updateV4Stats();
-    streakUpdate();
-    saveAndRender();
+      saveAndRender();
     }, 200);
   } else {
     card.style.transform = 'translateX(0)';
@@ -1103,251 +864,6 @@ document.addEventListener('keydown', (e) => {
 });
 
 document.addEventListener('touchstart', () => {}, { passive: true });
-</script>
-
-
-// V4: Update Parkinson insight
-function updateParkinsonInsight() {
-  const timed = tasks.filter(t => t.completed && t.elapsed > 0 && t.estTime);
-  const parkinsonMsg = document.getElementById('parkinsonMsg');
-  const parkinsonDetail = document.getElementById('parkinsonDetail');
-  
-  if (timed.length === 0) {
-    if (parkinsonMsg) parkinsonMsg.textContent = 'No timed tasks yet';
-    if (parkinsonDetail) parkinsonDetail.textContent = '';
-    return;
-  }
-  
-  const avgRatio = timed.reduce((s, t) => s + (t.elapsed / (t.estTime * 60)), 0) / timed.length;
-  let msg, color;
-  if (avgRatio > 1.3) { msg = 'Over-estimated'; color = 'var(--repetitive)'; }
-  else if (avgRatio > 1) { msg = 'Close'; color = 'var(--creative)'; }
-  else if (avgRatio > 0.7) { msg = 'Accurate'; color = 'var(--logical)'; }
-  else { msg = 'Under-estimated'; color = 'var(--accent)'; }
-  
-  if (parkinsonMsg) {
-    parkinsonMsg.textContent = msg;
-    parkinsonMsg.style.color = color;
-  }
-  if (parkinsonDetail) {
-    parkinsonDetail.textContent = `On average your actual time was ${avgRatio.toFixed(1)}x your estimate.`;
-  }
-}
-
-// V4: Update Energy Breakdown
-function updateEnergyBreakdown() {
-  const energies = { high: 0, med: 0, low: 0 };
-  tasks.forEach(t => {
-    if (t.energy === 'high') energies.high++;
-    else if (t.energy === 'med') energies.med++;
-    else if (t.energy === 'low') energies.low++;
-  });
-  
-  if (document.getElementById('statEnergyHigh')) document.getElementById('statEnergyHigh').textContent = energies.high;
-  if (document.getElementById('statEnergyMed')) document.getElementById('statEnergyMed').textContent = energies.med;
-  if (document.getElementById('statEnergyLow')) document.getElementById('statEnergyLow').textContent = energies.low;
-}
-
-// V4: Update Timed Tasks Stats
-function updateTimedStats() {
-  const timed = tasks.filter(t => t.completed && t.elapsed > 0 && t.estTime);
-  
-  if (document.getElementById('statTimed')) document.getElementById('statTimed').textContent = timed.length;
-  
-  if (timed.length > 0) {
-    const avgRatio = timed.reduce((s, t) => s + (t.elapsed / (t.estTime * 60)), 0) / timed.length;
-    if (document.getElementById('statAvgRatio')) document.getElementById('statAvgRatio').textContent = avgRatio.toFixed(1) + 'x';
-  } else {
-    if (document.getElementById('statAvgRatio')) document.getElementById('statAvgRatio').textContent = '0x';
-  }
-}
-
-// Call V4 stats updates
-function updateV4Stats() {
-  updateParkinsonInsight();
-  updateEnergyBreakdown();
-  updateTimedStats();
-}
-
-<script>
-// V4: Dark theme toggle
-function toggleDarkTheme() {
-  const isDark = document.body.classList.contains('dark-mode');
-  if (isDark) {
-    document.body.classList.remove('dark-mode');
-    localStorage.setItem('theme', 'light');
-  } else {
-    document.body.classList.add('dark-mode');
-    localStorage.setItem('theme', 'dark');
-  }
-}
-
-// V4: Update focus card
-function updateFocusCard() {
-  const total = tasks.length;
-  const done = tasks.filter(t => t.completed).length;
-  const pct = total ? Math.round(done / total * 100) : 0;
-  
-  const focusBadge = document.getElementById('focusBadge');
-  const focusPct = document.getElementById('focusPct');
-  const focusTitle = document.getElementById('focusTitle');
-  const focusSub = document.getElementById('focusSub');
-  
-  if (focusBadge) focusBadge.textContent = `${done}/${total} tasks`;
-  if (focusPct) focusPct.textContent = `${pct}%`;
-  
-  // Update progress ring
-  const circumference = 2 * Math.PI * 28;
-  const ringFill = document.getElementById('ringFill');
-  if (ringFill) {
-    const offset = circumference - (pct / 100) * circumference;
-    ringFill.style.strokeDashoffset = offset;
-    ringFill.style.strokeDasharray = circumference;
-  }
-  
-  if (pct === 100) {
-    if (focusTitle) focusTitle.textContent = 'All caught up! 🎉';
-    if (focusSub) focusSub.textContent = 'Great job! Time for a break.';
-  } else if (pct >= 75) {
-    if (focusTitle) focusTitle.textContent = 'Almost there';
-    if (focusSub) focusSub.textContent = `You have ${total - done} tasks remaining`;
-  } else {
-    if (focusTitle) focusTitle.textContent = 'Keep going';
-    if (focusSub) focusSub.textContent = 'Add your first task above';
-  }
-}
-
-// V4: Update priority bars
-function updatePriorityBars() {
-  const priorityCounts = { high: 0, med: 0, low: 0 };
-  tasks.forEach(t => {
-    if (t.priority === 'high') priorityCounts.high++;
-    else if (t.priority === 'med') priorityCounts.med++;
-    else if (t.priority === 'low') priorityCounts.low++;
-  });
-  
-  const total = priorityCounts.high + priorityCounts.med + priorityCounts.low;
-  if (total === 0) return;
-  
-  const highPct = Math.round(priorityCounts.high / total * 100);
-  const medPct = Math.round(priorityCounts.med / total * 100);
-  const lowPct = Math.round(priorityCounts.low / total * 100);
-  
-  document.querySelectorAll('.bar-fill').forEach((el, i) => {
-    if (i === 0) el.style.width = `${highPct}%`;
-    else if (i === 1) el.style.width = `${medPct}%`;
-    else if (i === 2) el.style.width = `${lowPct}%`;
-  });
-  
-  document.querySelectorAll('.bar-count').forEach((el, i) => {
-    if (i === 0) el.textContent = priorityCounts.high;
-    else if (i === 1) el.textContent = priorityCounts.med;
-    else if (i === 2) el.textContent = priorityCounts.low;
-  });
-}
-
-// Apply saved theme on load
-document.addEventListener('DOMContentLoaded', () => {
-  const saved = localStorage.getItem('theme');
-  if (saved === 'dark') {
-    document.body.classList.add('dark-mode');
-  }
-  // V4: Initialize focus card and priority bars
-  setTimeout(() => {
-    updateFocusCard();
-    updatePriorityBars();
-    updateV4Stats();
-  }, 100);
-});
-</script>
-
-<script>
-// V4: Quick capture - adds a task with default values
-function quickCapture() {
-  const title = prompt('Quick add task:');
-  if (title && title.trim()) {
-    tasks.unshift({
-      id: crypto.randomUUID(),
-      title: title.trim(),
-      type: 'Logical',
-      desc: '',
-      priority: 'med',
-      completed: false,
-      createdAt: Date.now(),
-      energy: 'med',
-      estTime: 25,
-      elapsed: 0
-    });
-    saveAndRender();
-  }
-}
-
-// V4: Timer functionality
-let timers = {};
-
-function startTimer(id) {
-  if (timers[id]) return;
-  
-  const task = tasks.find(t => t.id === id);
-  if (!task || task.completed) return;
-  
-  timers[id] = setInterval(() => {
-    task.elapsed = (task.elapsed || 0) + 1;
-    saveAndRender();
-  }, 1000);
-}
-
-function stopTimer(id) {
-  if (timers[id]) {
-    clearInterval(timers[id]);
-    delete timers[id];
-    const task = tasks.find(t => t.id === id);
-    if (task) saveAndRender();
-  }
-}
-
-function formatTime(seconds) {
-  const h = Math.floor(seconds / 3600);
-  const m = Math.floor((seconds % 3600) / 60);
-  const s = Math.floor(seconds % 60);
-  if (h > 0) return `${h}h ${m}m ${s}s`;
-  if (m > 0) return `${m}m ${s}s`;
-  return `${s}s`;
-}
-
-// V4: Streak tracking
-function streakUpdate() {
-  const last = localStorage.getItem('last');
-  const td = Date.now() - (Date.now() % 864e5);
-  const yd = td - 864e5;
-  if (last === td) return;
-  if (last !== yd && last !== td) {
-    localStorage.setItem('st', '1');
-  } else {
-    const st = parseInt(localStorage.getItem('st') || '0');
-    localStorage.setItem('st', String(last === yd ? st + 1 : 1));
-  }
-  localStorage.setItem('last', td);
-}
-
-// V4: Parkinson insight
-function calculateParkinsonInsight() {
-  const timed = tasks.filter(t => t.completed && t.elapsed > 0 && t.estTime);
-  if (timed.length === 0) return { msg: 'No timed tasks yet', color: 'var(--text-secondary)' };
-  
-  const avgRatio = timed.reduce((s, t) => s + (t.elapsed / (t.estTime * 60)), 0) / timed.length;
-  let msg, color;
-  if (avgRatio > 1.3) { msg = 'Over-estimated'; color = 'var(--repetitive)'; }
-  else if (avgRatio > 1) { msg = 'Close'; color = 'var(--creative)'; }
-  else if (avgRatio > 0.7) { msg = 'Accurate'; color = 'var(--logical)'; }
-  else { msg = 'Under-estimated'; color = 'var(--accent)'; }
-  
-  return { 
-    msg, 
-    color,
-    detail: `On average your actual time was ${avgRatio.toFixed(1)}x your estimate.`
-  };
-}
 </script>
 </body>
 </html>
