@@ -251,7 +251,7 @@ body {
   position: fixed;
   bottom: 20px;
   right: 16px;
-  width: var(--fab-size);
+  width: var(--fab-size, 56px); height: var(--fab-size, 56px);
   height: var(--fab-size);
   border-radius: 50%;
   background: var(--accent);
@@ -487,6 +487,31 @@ body {
 .timer-live .pulse { width: 6px; height: 6px; border-radius: 50%; background: #0071e3; animation: pulse 1.2s ease infinite; }
 @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.2} }
 .timer-live .tLive { font-family: monospace; font-size: 14px; font-weight: 700; color: #0071e3; letter-spacing: .5px; }
+
+/* V6: Responsive Design Fixes */
+@media (max-width: 480px) {
+  .header { padding: 12px 16px; }
+  .title { font-size: 20px; }
+  .main { padding: var(--main-padding, 16px); }
+  .focus { margin: 12px 12px 16px; padding: 16px; }
+  .priority-section, .parkinson-section, .energy-section, .timed-section { margin: 0 12px 16px; }
+  .section { padding: 0 16px; }
+  .modal-sheet { margin: 0; border-radius: 0; }
+  .type-selector { max-width: 100%; }
+  .stats-bar { padding: 12px 12px; }
+  .stat-item { font-size: 11px; }
+  .stat-value { font-size: 16px; }
+}
+
+@media (max-width: 360px) {
+  .header { padding: 10px 12px; }
+  .title { font-size: 18px; }
+  .main { padding: 12px; }
+  .focus { margin: 10px 10px 12px; padding: 14px; }
+  .priority-section, .parkinson-section, .energy-section, .timed-section { margin: 0 10px 12px; }
+  .section { padding: 0 12px; }
+  .bar-label { width: 40px; font-size: 10px; }
+}
 </style>
 </head>
 <body>
